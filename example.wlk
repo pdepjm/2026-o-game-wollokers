@@ -1,12 +1,38 @@
 import wollok.game.*
 
 
-class Mono{
+class Mono {
+
   const numero
   const costo
   const disparoVel
+  const radioAtaque
+
   method image() = "mono" + numero.toString() + ".png"
+
   var property position = game.center()
+
+  method getDisparoVel() = disparoVel
+
+  method getRadioAtaque() = radioAtaque
+ 
+  method atacar(globos) {
+      const globoObjetivo = globos.find({ globo =>
+          self.estaEnRango(globo)
+      })
+
+      if (globoObjetivo != null) {
+          game.removeVisual(globoObjetivo)
+          globos.remove(globoObjetivo)
+      }
+  }
+
+  method estaEnRango(globo) {
+      const distanciaX = (position.x() - globo.position().x()).abs()
+      const distanciaY = (position.y() - globo.position().y()).abs()
+
+      return distanciaX <= radioAtaque && distanciaY <= radioAtaque
+  }
 }
 
 class Globo{
