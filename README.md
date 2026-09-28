@@ -1,6 +1,6 @@
 ### [Bloons]
 
-Sakugawa Sofia
-Frontini Kiara
-Rey Alvarez Milagros
-Merino Victor 
+*Sakugawa Sofia
+*Frontini Kiara
+*Rey Alvarez Milagros
+*Merino Victor 
