@@ -10,9 +10,17 @@ program PepitaGame {
 	game.width(20)
 	game.boardGround("mapa1.png")
 
-
-
 	game.addVisualCharacter(cursor)
+
+	keyboard.up().onPressDo({ cursor.subir()})
+	keyboard.down().onPressDo({ cursor.bajar()})
+	keyboard.left().onPressDo({ cursor.izquierda()})
+	keyboard.right().onPressDo({ cursor.derecha()})
+
+	keyboard.space().onPressDo({ 
+		const monoEnCursor = new Mono(numero = 1, costo = 300, disparoVel = 1, position = cursor.position())
+		game.addVisual(monoEnCursor)
+	})
 	
 	const monoNuevo = new Mono(numero =1, costo = 300, disparoVel = 1)
 	game.addVisual(monoNuevo)
