@@ -26,3 +26,4 @@ object cursor{
    method derecha(){position = position.right(1)}
   method image() = "goat.png"
 }
+
