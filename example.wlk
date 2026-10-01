@@ -1,54 +1,43 @@
 import wollok.game.*
 
+import example.cursor
+import example.Mono
+import example.Globo
 
-class Mono {
+program PepitaGame {
+	game.title("Bloons WLK")
+	game.height(10)
+	game.width(20)
+	game.boardGround("mapa1.png")
 
-  const numero
-  const costo
-  const disparoVel
-  const radioAtaque
+	const monos = []
+	const globos = []
 
-  method image() = "mono" + numero.toString() + ".png"
 
-  var property position = game.center()
+	game.addVisualCharacter(cursor)
+	
+	const monoNuevo = new Mono(numero =1, costo = 300, disparoVel = 2000, radioAtaque = 2)
+	monos.add(monoNuevo)
+	game.addVisual(monoNuevo)
 
-  method getDisparoVel() = disparoVel
+	monos.forEach({mono => game.onTick(mono.getDisparoVel(), "romperGlobo",{mono.atacar(globos)})})
 
-  method getRadioAtaque() = radioAtaque
- 
-  method atacar(globos) {
-      const globoObjetivo = globos.find({ globo =>
-          self.estaEnRango(globo)
-      })
 
-      if (globoObjetivo != null) {
-          game.removeVisual(globoObjetivo)
-          globos.remove(globoObjetivo)
-      }
-  }
+	game.onTick(2000, "generar" ,{
+		const globoNuevo = new Globo(numero = 1, velocidad = 1)
+		globos.add(globoNuevo)
+		game.addVisual(globoNuevo)
+		})
 
-  method estaEnRango(globo) {
-      const distanciaX = (position.x() - globo.position().x()).abs()
-      const distanciaY = (position.y() - globo.position().y()).abs()
+	game.onTick(7000, "generar2" ,{
+		const globoNuevo = new Globo(numero = 2, velocidad = 2 )
+		globos.add(globoNuevo)
+		game.addVisual(globoNuevo)
+		})
+	
+	game.onTick(1000, "moverGlobos", {globos.forEach{ globo => globo.avanzar() }})
 
-      return distanciaX <= radioAtaque && distanciaY <= radioAtaque
-  }
-}
+	
 
-class Globo{
-const numero 
-const velocidad
-method image() = "globo" + numero.toString() + ".png"
-var property position = game.at(0,3)
-method avanzar() {position = position.right(velocidad)}
-
-}
-
-object cursor{
-  var property position = game.center()
-   method subir(){position = position.up(1)}
-   method bajar(){position = position.down(1)}
-   method izquierda(){position = position.left(1)}
-   method derecha(){position = position.right(1)}
-  method image() = "goat.png"
+	game.start()
 }
