@@ -10,14 +10,18 @@ program PepitaGame {
 	game.width(20)
 	game.boardGround("mapa1.png")
 
+	const monos = []
+	const globos = []
 
 
 	game.addVisualCharacter(cursor)
 	
-	const monoNuevo = new Mono(numero =1, costo = 300, disparoVel = 1)
+	const monoNuevo = new Mono(numero =1, costo = 300, disparoVel = 2000, radioAtaque = 2)
+	monos.add(monoNuevo)
 	game.addVisual(monoNuevo)
-	
-	const globos = []
+
+	monos.forEach({mono => game.onTick(mono.getDisparoVel(), "romperGlobo",{mono.atacar(globos)})})
+
 
 	game.onTick(2000, "generar" ,{
 		const globoNuevo = new Globo(numero = 1, velocidad = 1)
@@ -33,19 +37,8 @@ program PepitaGame {
 	
 	game.onTick(1000, "moverGlobos", {globos.forEach{ globo => globo.avanzar() }})
 
-	game.onTick(500, "BorrarGlobos", {
-        const globosQueSalieron = globos.filter({ globo => globo.position().x() >= 20 })
-        globosQueSalieron.forEach({ globo =>  game.removeVisual(globo) globos.remove(globo)}) })
-
-	game.onTick(3000, "MOVER_Y_LIMPIAR", {
-    // Acá va tu lógica de mover y eliminar si salen del mapa...
-    
-    // Imprime la cantidad actual de globos vivos
-    console.println("Cantidad de globos en lista: " + globos.size())
-    
-    // Si querés ver las referencias exactas de los objetos:
-    console.println(globos) 
-})
+	
 
 	game.start()
 }
+
