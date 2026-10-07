@@ -1,4 +1,4 @@
-import wollok.game.*
+/*import wollok.game.*
 
 
 class Mono{
@@ -26,3 +26,4 @@ object cursor{
    method derecha(){position = position.right(1)}
   method image() = "goat.png"
 }
+*/

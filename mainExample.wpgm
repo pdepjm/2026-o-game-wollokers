@@ -1,8 +1,7 @@
 import wollok.game.*
-
-import example.cursor
-import example.Mono
-import example.Globo
+import monos.*
+import globos.*
+import puntero.*
 
 program PepitaGame {
 	game.title("Bloons WLK")
@@ -12,7 +11,7 @@ program PepitaGame {
 
 
 
-	game.addVisualCharacter(cursor)
+	game.addVisualCharacter(puntero)
 	
 	const monoNuevo = new Mono(numero =1, costo = 300, disparoVel = 1)
 	game.addVisual(monoNuevo)
