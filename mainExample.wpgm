@@ -3,7 +3,7 @@ import monos.*
 import globos.*
 import puntero.*
 
-program PepitaGame {
+program BloonsWLK {
 	game.title("Bloons WLK")
 	game.height(10)
 	game.width(20)
