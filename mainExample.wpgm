@@ -5,6 +5,7 @@ import monos.*
 import flechas.*
 import vidas.*
 import rondas.*
+import dinero.*
 
 program BloonsWLK {
 	game.title("Bloons WLK")
@@ -16,8 +17,17 @@ program BloonsWLK {
 	const monos = []
 	
 	game.addVisual(contadorDeVidas)
+	game.addVisual(dinero)
 	armarFlechas.armarMapa1()
 	game.addVisualCharacter(puntero)
+
+
+	//SOLO PARA PROBAR: con la tecla P se pincha el primer globo. Cuando los monos puedan atacar, se borra esto
+	keyboard.p().onPressDo({
+		if (not gestorDeGlobos.activos().isEmpty()) {  
+			gestorDeGlobos.activos().first().pinchar() 
+		}
+	})
 	
 	keyboard.space().onPressDo({
 		const posicion = puntero.position()
