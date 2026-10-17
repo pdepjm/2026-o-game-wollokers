@@ -5,13 +5,13 @@ class Globo{
 const numero 
 var property velocidad //siempre escrita en milisegundos porfavor
 var property direccion 
-
+var property vivo = true 
 
 method image() = "globo" + numero.toString() + ".png"
 
 var property position = game.at(0,19)
 
-// ahora se muevo solo si el globo esta vivo
+// ahora se mueve solo si el globo esta vivo
  method avanzar(){
     if (vivo) { 
 
