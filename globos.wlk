@@ -1,4 +1,6 @@
 import wollok.game.*
+import dinero.*
+
 class Globo{
 const numero 
 var property velocidad //siempre escrita en milisegundos porfavor
@@ -9,10 +11,26 @@ method image() = "globo" + numero.toString() + ".png"
 
 var property position = game.at(0,19)
 
+// ahora se muevo solo si el globo esta vivo
  method avanzar(){
+    if (vivo) { 
+
     position = direccion.proximaPosicion(position)
     game.schedule(velocidad, {self.avanzar()})
  }
+}
+
+
+ method pinchar(){
+    if (vivo) {                         
+        vivo = false                   
+        gestorDeGlobos.eliminar(self)   
+        game.removeVisual(self)       
+        dinero.ganar(1)                
+    }
+ }
+
+
 
  method cambiarDireccion(globo) {
         globo.direccion(direccion)
