@@ -1,46 +1,47 @@
 import wollok.game.*
-import monos.*
 import globos.*
 import puntero.*
+import monos.*
+import flechas.*
+import vidas.*
+import rondas.*
 
 program BloonsWLK {
 	game.title("Bloons WLK")
-	game.height(10)
-	game.width(20)
+	game.height(70)
+	game.width(140)
 	game.boardGround("mapa1.png")
-
+	game.cellSize(10)
+	
 	const monos = []
-	const globos = []
-
-
+	
+	game.addVisual(contadorDeVidas)
+	armarFlechas.armarMapa1()
 	game.addVisualCharacter(puntero)
 	
-	const monoNuevo = new Mono(numero =1, costo = 300, disparoVel = 2000, radioAtaque = 2)
+	keyboard.space().onPressDo({
+		const posicion = puntero.position()
+		console.println(posicion)}) //con esto tocan espacio y ven en la terminal en que casilla estan asi pueden poner bien las cosas :)
+
+	
+	
+	
+	
+	/* const monoNuevo = new Mono(numero =1, costo = 300, disparoVel = 2000)
 	monos.add(monoNuevo)
-	game.addVisual(monoNuevo)
+	game.addVisual(monoNuevo)*/
 
-	monos.forEach({mono => game.onTick(mono.getDisparoVel(), "romperGlobo",{mono.atacar(globos)})})
+	/*monos.forEach({mono => game.onTick(mono.getDisparoVel(), "romperGlobo",{mono.atacar(globos)})})*/
 
 
-	game.onTick(2000, "generar" ,{
-		const globoNuevo = new Globo(numero = 1, velocidad = 1)
-		globos.add(globoNuevo)
-		game.addVisual(globoNuevo)
-		})
-
-	game.onTick(7000, "generar2" ,{
-		const globoNuevo = new Globo(numero = 2, velocidad = 2 )
-		globos.add(globoNuevo)
-		game.addVisual(globoNuevo)
-		})
-	
-	game.onTick(1000, "moverGlobos", {globos.forEach{ globo => globo.avanzar() }})
-
-	game.onTick(500, "BorrarGlobos", {
-        const globosQueSalieron = globos.filter({ globo => globo.position().x() >= 20 })
-        globosQueSalieron.forEach({ globo =>  game.removeVisual(globo) globos.remove(globo)}) })
+	entreTiempo.espera()
 
 	
+	
+	
 
+
+
+		
 	game.start()
 }

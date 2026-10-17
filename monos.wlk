@@ -1,4 +1,3 @@
-import wollok.game.*
 
 class Mono{
   const numero
