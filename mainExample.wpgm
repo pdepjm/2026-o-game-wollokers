@@ -8,6 +8,7 @@ import rondas.*
 import dinero.*
 
 program BloonsWLK {
+
 	game.title("Bloons WLK")
 	game.height(70)
 	game.width(140)
@@ -21,37 +22,36 @@ program BloonsWLK {
 	armarFlechas.armarMapa1()
 	game.addVisualCharacter(puntero)
 
-
-	//SOLO PARA PROBAR: con la tecla P se pincha el primer globo. Cuando los monos puedan atacar, se borra esto
-	keyboard.p().onPressDo({
-		if (not gestorDeGlobos.activos().isEmpty()) {  
-			gestorDeGlobos.activos().first().pinchar() 
-		}
-	})
-	
 	keyboard.space().onPressDo({
 		const posicion = puntero.position()
-		console.println(posicion)}) //con esto tocan espacio y ven en la terminal en que casilla estan asi pueden poner bien las cosas :)
+		console.println(posicion)
+	})
 
-	
-	
-	
-	
-	/* const monoNuevo = new Mono(numero =1, costo = 300, disparoVel = 2000)
-	monos.add(monoNuevo)
-	game.addVisual(monoNuevo)*/
+	keyboard.r().onPressDo({
 
-	/*monos.forEach({mono => game.onTick(mono.getDisparoVel(), "romperGlobo",{mono.atacar(globos)})})*/
+		const monoNuevo = new MonoRapido()
+		if (dinero.puedePagar(monoNuevo.costo())) {
+			dinero.pagar(monoNuevo.costo())
+			monoNuevo.position(puntero.position())
+			monos.add(monoNuevo)
+			game.addVisual(monoNuevo)
+			monoNuevo.iniciarAtaque()
+		}
+	})
 
+	keyboard.l().onPressDo({
+
+		const monoNuevo = new MonoLejano()
+		if (dinero.puedePagar(monoNuevo.costo())) {
+			dinero.pagar(monoNuevo.costo())
+			monoNuevo.position(puntero.position())
+			monos.add(monoNuevo)
+			game.addVisual(monoNuevo)
+			monoNuevo.iniciarAtaque()
+		}
+	})
 
 	entreTiempo.espera()
 
-	
-	
-	
-
-
-
-		
 	game.start()
 }

@@ -1,1 +1,63 @@
+import dinero.*
+import monos.*
+import vidas.*
 
+describe "Bloons WLK" {
+
+    test "comprar un mono resta uno de dinero" {
+        dinero.cantidad(10)
+        dinero.pagar(1)
+
+        assert.equals(
+            9,
+            dinero.cantidad()
+        )
+    }
+
+    test "no se puede comprar un mono si no hay dinero" {
+        dinero.cantidad(0)
+
+        assert.that(
+            not dinero.puedePagar(1)
+        )
+    }
+
+    test "el mono rapido dispara mas rapido que el mono lejano" {
+        const monoRapido = new MonoRapido()
+        const monoLejano = new MonoLejano()
+
+        assert.that(
+            monoRapido.disparoVel()
+                <
+            monoLejano.disparoVel()
+        )
+    }
+
+    test "el mono lejano tiene mas rango que el mono rapido" {
+        const monoRapido = new MonoRapido()
+        const monoLejano = new MonoLejano()
+
+        assert.that(
+            monoLejano.radioAtaque()
+                >
+            monoRapido.radioAtaque()
+        )
+    }
+
+
+    test "hay game over cuando las vidas llegan a cero" {
+        contadorDeVidas.vidas(0)
+
+        assert.that(
+            contadorDeVidas.sinVidas()
+        )
+    }
+
+    test "con vidas restantes no hay game over" {
+        contadorDeVidas.vidas(5)
+
+        assert.that(
+            not contadorDeVidas.sinVidas()
+        )
+    }
+}
