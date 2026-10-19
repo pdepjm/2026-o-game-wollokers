@@ -1,27 +1,10 @@
 import dinero.*
 import monos.*
 import vidas.*
+import globos.*
+import flechas.*
 
-describe "Bloons WLK" {
-
-    test "comprar un mono resta uno de dinero" {
-        dinero.cantidad(10)
-        dinero.pagar(1)
-
-        assert.equals(
-            9,
-            dinero.cantidad()
-        )
-    }
-
-    test "no se puede comprar un mono si no hay dinero" {
-        dinero.cantidad(0)
-
-        assert.that(
-            not dinero.puedePagar(1)
-        )
-    }
-
+describe "tests de monos" {
     test "el mono rapido dispara mas rapido que el mono lejano" {
         const monoRapido = new MonoRapido()
         const monoLejano = new MonoLejano()
@@ -43,7 +26,57 @@ describe "Bloons WLK" {
             monoRapido.radioAtaque()
         )
     }
+    
+    test "cuando se pincha un globo, se elimina"{
+        const globo = new Globo(numero = 1, direccion = derecha, velocidad = 500)
+        gestorDeGlobos.agregar(globo)
+        globo.pinchar()
 
+        assert.equals(0, gestorDeGlobos.activos().size())
+    }
+
+}
+
+describe "tests de dinero"{
+
+    test "comprar un mono resta uno de dinero" {
+        dinero.cantidad(10)
+        dinero.pagar(1)
+
+        assert.equals(
+            9,
+            dinero.cantidad()
+        )
+    }
+
+    test "no se puede comprar un mono si no hay dinero" {
+        dinero.cantidad(0)
+
+        assert.that(
+            not dinero.puedePagar(1)
+        )
+    }
+
+    test "el dinero aumenta correctamente cuando se gana (al pinchar el globo) "{
+        dinero.cantidad(20)
+        const globo = new Globo(numero = 1, direccion = derecha, velocidad = 500)
+        globo.pinchar()
+        assert.equals(21, dinero.cantidad())
+    }
+
+}
+
+describe "tests de vidas"{
+
+    test "se pierde una vida si el globo llega al final"{
+        contadorDeVidas.vidas(10)
+        const casillaFinal = new CasillaFinal (position = game.at(0,0), image = "final.png")
+        const globo = new Globo(numero = 1, direccion = derecha, velocidad = 500)
+
+        casillaFinal. chocarCon(globo)
+        assert.equals(9, contadorDeVidas.vidas())
+
+    }
 
     test "hay game over cuando las vidas llegan a cero" {
         contadorDeVidas.vidas(0)
@@ -60,4 +93,5 @@ describe "Bloons WLK" {
             not contadorDeVidas.sinVidas()
         )
     }
+
 }
