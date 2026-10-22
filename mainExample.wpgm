@@ -20,7 +20,12 @@ program BloonsWLK {
 	game.addVisual(contadorDeVidas)
 	game.addVisual(dinero)
 	armarFlechas.armarMapa1()
-	game.addVisualCharacter(puntero)
+	game.addVisual(puntero)
+
+	keyboard.up().whilePressedDo({puntero.position(puntero.position().up(1))}, 100)
+	keyboard.down().whilePressedDo({puntero.position(puntero.position().down(1))}, 100)
+	keyboard.left().whilePressedDo({puntero.position(puntero.position().left(1))}, 100)
+	keyboard.right().whilePressedDo({puntero.position(puntero.position().right(1))}, 100)
 
 	keyboard.space().onPressDo({
 		const posicion = puntero.position()
