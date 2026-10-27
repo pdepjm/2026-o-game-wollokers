@@ -6,6 +6,7 @@ import flechas.*
 import vidas.*
 import rondas.*
 import dinero.*
+import pantallaInicio.*
 
 program BloonsWLK {
 
@@ -14,6 +15,7 @@ program BloonsWLK {
 	game.width(140)
 	game.boardGround("mapa1.png")
 	game.cellSize(10)
+	game.addvisual(pantallaInicio)
 	
 	const monos = []
 	
