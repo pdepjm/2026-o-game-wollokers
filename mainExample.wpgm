@@ -15,7 +15,7 @@ program BloonsWLK {
 	game.width(140)
 	game.boardGround("mapa1.png")
 	game.cellSize(10)
-	game.addvisual(pantallaInicio)
+	game.addVisual(pantallaInicio)
 	
 	const monos = []
 	
