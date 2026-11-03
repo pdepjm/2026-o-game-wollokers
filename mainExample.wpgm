@@ -1,64 +1,107 @@
 import wollok.game.*
-import globos.*
 import puntero.*
-import monos.*
+import protectores.*
 import flechas.*
 import vidas.*
 import rondas.*
 import dinero.*
 import pantallaInicio.*
 
-program BloonsWLK {
+program ProtectoresDeSuenos {
+    game.title("Pesadillas y Protectores de Sueños")
+    game.height(70)
+    game.width(140)
+    game.boardGround("mapa1.png")
+    game.cellSize(10)
+    game.addVisual(contadorDeVidas)
+    game.addVisual(dinero)
+    armarFlechas.armarMapa1()
+    game.addVisual(puntero)
+    game.addVisual(pantallaInicio)
 
-	game.title("Bloons WLK")
-	game.height(70)
-	game.width(140)
-	game.boardGround("mapa1.png")
-	game.cellSize(10)
-	game.addVisual(pantallaInicio)
-	
-	const monos = []
-	
-	game.addVisual(contadorDeVidas)
-	game.addVisual(dinero)
-	armarFlechas.armarMapa1()
-	game.addVisual(puntero)
 
-	keyboard.up().whilePressedDo({puntero.position(puntero.position().up(1))}, 100)
-	keyboard.down().whilePressedDo({puntero.position(puntero.position().down(1))}, 100)
-	keyboard.left().whilePressedDo({puntero.position(puntero.position().left(1))}, 100)
-	keyboard.right().whilePressedDo({puntero.position(puntero.position().right(1))}, 100)
 
-	keyboard.space().onPressDo({
-		const posicion = puntero.position()
-		console.println(posicion)
-	})
+    keyboard.enter().onPressDo({
+        game.removeVisual(pantallaInicio)
+        keyboard.enter().clean()
+    })
+    keyboard.up().whilePressedDo({
+        puntero.position(
+            puntero.position().up(1)
+        )
+    }, 100)
+    keyboard.down().whilePressedDo({
+        puntero.position(
+            puntero.position().down(1)
+        )
+    }, 100)
+    keyboard.left().whilePressedDo({
+        puntero.position(
+            puntero.position().left(1)
+        )
+    }, 100)
+    keyboard.right().whilePressedDo({
+        puntero.position(
+            puntero.position().right(1)
+        )
+    }, 100)
 
-	keyboard.r().onPressDo({
 
-		const monoNuevo = new MonoRapido()
-		if (dinero.puedePagar(monoNuevo.costo())) {
-			dinero.pagar(monoNuevo.costo())
-			monoNuevo.position(puntero.position())
-			monos.add(monoNuevo)
-			game.addVisual(monoNuevo)
-			monoNuevo.iniciarAtaque()
-		}
-	})
 
-	keyboard.l().onPressDo({
+    keyboard.o().onPressDo({
 
-		const monoNuevo = new MonoLejano()
-		if (dinero.puedePagar(monoNuevo.costo())) {
-			dinero.pagar(monoNuevo.costo())
-			monoNuevo.position(puntero.position())
-			monos.add(monoNuevo)
-			game.addVisual(monoNuevo)
-			monoNuevo.iniciarAtaque()
-		}
-	})
+        gestorDeProtectores.colocar(
 
-	entreTiempo.espera()
+            new Oveja(),
 
-	game.start()
+            puntero.position()
+        )
+    })
+    keyboard.d().onPressDo({
+
+        gestorDeProtectores.colocar(
+
+            new PerroGuardian(),
+
+            puntero.position()
+        )
+    })
+    keyboard.l().onPressDo({
+
+        gestorDeProtectores.colocar(
+
+            new LamparaProtectora(),
+
+            puntero.position()
+        )
+    })
+    keyboard.s().onPressDo({
+
+        gestorDeProtectores.colocar(
+
+            new PastorDeSuenos(),
+
+            puntero.position()
+        )
+    })
+    keyboard.v().onPressDo({
+
+        gestorDeProtectores.venderEn(
+
+            puntero.position()
+        )
+    })
+
+
+
+    entreTiempo.espera()
+    console.println("Controles:")
+    console.println("O: colocar oveja")
+    console.println("D: colocar perro guardian")
+    console.println("L: colocar lampara protectora")
+    console.println("S: colocar pastor de sueños")
+    console.println("V: vender protector")
+    console.println("E: comenzar siguiente ronda")
+    console.println("ENTER: cerrar pantalla de inicio")
+    game.start()
 }

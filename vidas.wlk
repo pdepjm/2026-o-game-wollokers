@@ -1,8 +1,6 @@
 import wollok.game.*
 
 object contadorDeVidas {
-
-    // 10 para probar
     var property vidas = 10
 
     method position() = game.at(5, 67)
@@ -15,11 +13,12 @@ object contadorDeVidas {
             }
         }
     }
-
     method sinVidas() = vidas <= 0
+    method esPesadilla() = false
 }
 
 object pantallaGameOver {
     method position() = game.center()
     method text() = "GAME OVER"
+    method esPesadilla() = false
 }

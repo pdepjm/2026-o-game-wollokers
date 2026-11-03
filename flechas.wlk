@@ -1,32 +1,31 @@
-import globos.*
 import wollok.game.*
-import vidas.*
+import pesadillas.*
 
+// FLECHAS
 class Flecha {
     var property position
     const direccion
     var property image
-
-    method cambiarDireccion(globo) {
-        globo.direccion(direccion)
+    method esPesadilla() = false
+    method cambiarDireccion(pesadilla) {
+        pesadilla.direccion(direccion)
     }
 }
 
+// CASILLA FINAL
 class CasillaFinal {
     var property position
     var property image
-
-    method chocarCon(globo) {
-        contadorDeVidas.perderVida()
-        globo.vivo(false)
-        gestorDeGlobos.eliminar(globo)
-        game.removeVisual(globo)
+    method esPesadilla() = false
+    method chocarCon(objeto) {
+        if (objeto.esPesadilla()) {
+            objeto.llegarAlFinal()
+        }
     }
 }
 
-
+// MAPA
 object armarFlechas {
-
     method armarMapa1() {
         self.colocarFlechas(64,19,abajo, "flechaAbajo.png")
         self.colocarFlechas(64,9,derecha, "flechaDerecha.png")
@@ -49,30 +48,31 @@ object armarFlechas {
         self.colocarFlechas(113,49,arriba,"flechaArriba.png")
         self.colocarFinal(113,65)
     }
-
-
     method colocarFlechas(x, y, apunta, imagen) {
         const nuevaFlecha = new Flecha(
             position = game.at(x,y),
             direccion = apunta,
             image = imagen
         )
-
         game.addVisual(nuevaFlecha)
         game.onCollideDo(nuevaFlecha, {
-            globo => nuevaFlecha.cambiarDireccion(globo)
+            objeto =>
+                if (objeto.esPesadilla()) {
+                    nuevaFlecha.cambiarDireccion(objeto)
+                }
         })
     }
-
     method colocarFinal(x,y) {
         const nuevoFinal = new CasillaFinal(
             position = game.at(x,y),
             image = "final.png"
         )
-
         game.addVisual(nuevoFinal)
         game.onCollideDo(nuevoFinal, {
-            globo => nuevoFinal.chocarCon(globo)
+            objeto =>
+                if (objeto.esPesadilla()) {
+                    nuevoFinal.chocarCon(objeto)
+                }
         })
     }
 }

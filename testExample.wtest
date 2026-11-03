@@ -1,97 +1,185 @@
+import wollok.game.*
 import dinero.*
-import monos.*
 import vidas.*
-import globos.*
-import flechas.*
+import mapa.*
+import protectores.*
+import pesadillas.*
 
-describe "tests de monos" {
-    test "el mono rapido dispara mas rapido que el mono lejano" {
-        const monoRapido = new MonoRapido()
-        const monoLejano = new MonoLejano()
-
+describe "Protectores de Sueños y Pesadillas" {
+    // CAMINO
+    test "una posicion del recorrido pertenece al camino" {
         assert.that(
-            monoRapido.disparoVel()
-                <
-            monoLejano.disparoVel()
+            mapa.esCamino(game.at(10,19))
         )
     }
-
-    test "el mono lejano tiene mas rango que el mono rapido" {
-        const monoRapido = new MonoRapido()
-        const monoLejano = new MonoLejano()
-
+    test "una posicion fuera del recorrido no pertenece al camino" {
         assert.that(
-            monoLejano.radioAtaque()
-                >
-            monoRapido.radioAtaque()
+            not mapa.esCamino(game.at(80,40))
+        )
+    }
+    test "no se puede colocar un protector sobre el camino" {
+        assert.that(
+            not gestorDeProtectores.puedeColocarEn(
+                game.at(10,19)
+            )
+        )
+    }
+    test "se puede colocar un protector fuera del camino" {
+        assert.that(
+            gestorDeProtectores.puedeColocarEn(
+                game.at(80,40)
+            )
         )
     }
     
-    test "cuando se pincha un globo, se elimina"{
-        const globo = new Globo(numero = 1, direccion = derecha, velocidad = 500)
-        gestorDeGlobos.agregar(globo)
-        globo.pinchar()
-
-        assert.equals(0, gestorDeGlobos.activos().size())
+    // LIMITE DE PROTECTORES
+    test "el limite de protectores es diez" {
+        assert.equals(
+            10,
+            gestorDeProtectores.limite()
+        )
+    }
+    test "no se puede colocar un protector si ya hay diez" {
+        (1..10).forEach({
+            numero =>
+                gestorDeProtectores.activos().add(
+                    new Oveja()
+                )
+        })
+        assert.equals(
+            10,
+            gestorDeProtectores.cantidad()
+        )
+        assert.that(
+            not gestorDeProtectores.puedeColocarEn(
+                game.at(80,40)
+            )
+        )
     }
 
-}
+    // PRECIO DE VENTA
+    test "la oveja devuelve la mitad de su costo" {
 
-describe "tests de dinero"{
-
-    test "comprar un mono resta uno de dinero" {
-        dinero.cantidad(10)
-        dinero.pagar(1)
+        const oveja = new Oveja()
 
         assert.equals(
-            9,
-            dinero.cantidad()
+            50,
+            oveja.precioDeVenta()
+        )
+    }
+    test "el perro devuelve la mitad de su costo" {
+        const perro = new PerroGuardian()
+        assert.equals(
+            90,
+            perro.precioDeVenta()
+        )
+    }
+    test "la lampara devuelve la mitad de su costo" {
+        const lampara = new LamparaProtectora()
+        assert.equals(
+            125,
+            lampara.precioDeVenta()
+        )
+    }
+    test "el pastor devuelve la mitad de su costo" {
+        const pastor = new PastorDeSuenos()
+        assert.equals(
+            200,
+            pastor.precioDeVenta()
         )
     }
 
-    test "no se puede comprar un mono si no hay dinero" {
-        dinero.cantidad(0)
+    // PESADILLA PEQUEÑA
+    test "la pesadilla pequeña recibe daño de todos los protectores" {
+        const pesadilla = new PesadillaPequena()
+        assert.that(pesadilla.puedeRecibirDanioDe(new Oveja()))
+        assert.that(pesadilla.puedeRecibirDanioDe(new PerroGuardian()))
+        assert.that(pesadilla.puedeRecibirDanioDe(new LamparaProtectora()))
+        assert.that(pesadilla.puedeRecibirDanioDe(new PastorDeSuenos()))
+    }
 
+    // PESADILLA CAMUFLADA
+    test "la oveja no puede atacar a la pesadilla camuflada" {
+        const pesadilla = new PesadillaCamuflada()
         assert.that(
-            not dinero.puedePagar(1)
+            not pesadilla.puedeRecibirDanioDe(new Oveja())
+        )
+    }
+    test "el perro puede atacar a la pesadilla camuflada" {
+        const pesadilla = new PesadillaCamuflada()
+        assert.that(
+            pesadilla.puedeRecibirDanioDe(new PerroGuardian())
+        )
+    }
+    test "la lampara puede atacar a la pesadilla camuflada" {
+        const pesadilla = new PesadillaCamuflada()
+        assert.that(
+            pesadilla.puedeRecibirDanioDe(new LamparaProtectora())
+        )
+    }
+    test "el pastor puede atacar a la pesadilla camuflada" {
+        const pesadilla = new PesadillaCamuflada()
+        assert.that(
+            pesadilla.puedeRecibirDanioDe(new PastorDeSuenos())
         )
     }
 
-    test "el dinero aumenta correctamente cuando se gana (al pinchar el globo) "{
-        dinero.cantidad(20)
-        const globo = new Globo(numero = 1, direccion = derecha, velocidad = 500)
-        globo.pinchar()
-        assert.equals(21, dinero.cantidad())
+    // PESADILLA GRANDE
+    test "la pesadilla grande es inmune a la lampara" {
+        const pesadilla = new PesadillaGrande()
+        assert.that(
+            not pesadilla.puedeRecibirDanioDe(
+                new LamparaProtectora()
+            )
+        )
+    }
+    test "la oveja puede atacar a la pesadilla grande" {
+        const pesadilla = new PesadillaGrande()
+        assert.that(
+            pesadilla.puedeRecibirDanioDe(new Oveja())
+        )
+    }
+    test "el perro puede atacar a la pesadilla grande" {
+        const pesadilla = new PesadillaGrande()
+        assert.that(
+            pesadilla.puedeRecibirDanioDe(new PerroGuardian())
+        )
+    }
+    test "el pastor puede atacar a la pesadilla grande" {
+        const pesadilla = new PesadillaGrande()
+        assert.that(
+            pesadilla.puedeRecibirDanioDe(new PastorDeSuenos())
+        )
     }
 
-}
-
-describe "tests de vidas"{
-
-    test "se pierde una vida si el globo llega al final"{
-        contadorDeVidas.vidas(10)
-        const casillaFinal = new CasillaFinal (position = game.at(0,0), image = "final.png")
-        const globo = new Globo(numero = 1, direccion = derecha, velocidad = 500)
-
-        casillaFinal. chocarCon(globo)
-        assert.equals(9, contadorDeVidas.vidas())
-
-    }
-
-    test "hay game over cuando las vidas llegan a cero" {
+    // VIDAS
+    test "se reconoce cuando no quedan vidas" {
         contadorDeVidas.vidas(0)
-
         assert.that(
             contadorDeVidas.sinVidas()
         )
     }
 
-    test "con vidas restantes no hay game over" {
-        contadorDeVidas.vidas(5)
+    // ECONOMIA
 
+    test "se puede pagar un protector si alcanza el dinero" {
+        dinero.cantidad(100)
         assert.that(
-            not contadorDeVidas.sinVidas()
+            dinero.puedePagar(100)
         )
     }
-
+    test "no se puede pagar un protector si no alcanza el dinero" {
+        dinero.cantidad(50)
+        assert.that(
+            not dinero.puedePagar(100)
+        )
+    }
+    test "pagar un protector descuenta su costo" {
+        dinero.cantidad(100)
+        dinero.pagar(100)
+        assert.equals(
+            0,
+            dinero.cantidad()
+        )
+    }
 }
