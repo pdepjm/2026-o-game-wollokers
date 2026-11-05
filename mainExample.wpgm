@@ -7,8 +7,8 @@ import rondas.*
 import dinero.*
 import pantallaInicio.*
 
-program ProtectoresDeSuenos {
-    game.title("Pesadillas y Protectores de Sueños")
+program NightmareHunt {
+    game.title("Nightmare Hunt")
     game.height(70)
     game.width(140)
     game.boardGround("mapa1.png")
@@ -48,7 +48,7 @@ program ProtectoresDeSuenos {
 
 
 
-    keyboard.o().onPressDo({
+    keyboard.1().onPressDo({
 
         gestorDeProtectores.colocar(
 
@@ -57,7 +57,7 @@ program ProtectoresDeSuenos {
             puntero.position()
         )
     })
-    keyboard.d().onPressDo({
+    keyboard.2().onPressDo({
 
         gestorDeProtectores.colocar(
 
@@ -66,7 +66,7 @@ program ProtectoresDeSuenos {
             puntero.position()
         )
     })
-    keyboard.l().onPressDo({
+    keyboard.3().onPressDo({
 
         gestorDeProtectores.colocar(
 
@@ -75,7 +75,7 @@ program ProtectoresDeSuenos {
             puntero.position()
         )
     })
-    keyboard.s().onPressDo({
+    keyboard.4().onPressDo({
 
         gestorDeProtectores.colocar(
 
@@ -96,10 +96,10 @@ program ProtectoresDeSuenos {
 
     entreTiempo.espera()
     console.println("Controles:")
-    console.println("O: colocar oveja")
-    console.println("D: colocar perro guardian")
-    console.println("L: colocar lampara protectora")
-    console.println("S: colocar pastor de sueños")
+    console.println("1: colocar oveja")
+    console.println("2: colocar perro guardian")
+    console.println("3: colocar lampara protectora")
+    console.println("4: colocar pastor de sueños")
     console.println("V: vender protector")
     console.println("E: comenzar siguiente ronda")
     console.println("ENTER: cerrar pantalla de inicio")
