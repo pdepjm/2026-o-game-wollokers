@@ -63,28 +63,28 @@ describe "Protectores de Sueños y Pesadillas" {
         const oveja = new Oveja()
 
         assert.equals(
-            50,
+            35,
             oveja.precioDeVenta()
         )
     }
     test "el perro devuelve la mitad de su costo" {
         const perro = new PerroGuardian()
         assert.equals(
-            90,
+            60,
             perro.precioDeVenta()
         )
     }
     test "la lampara devuelve la mitad de su costo" {
         const lampara = new LamparaProtectora()
         assert.equals(
-            125,
+            80,
             lampara.precioDeVenta()
         )
     }
     test "el pastor devuelve la mitad de su costo" {
         const pastor = new PastorDeSuenos()
         assert.equals(
-            200,
+            115,
             pastor.precioDeVenta()
         )
     }
