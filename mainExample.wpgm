@@ -9,10 +9,10 @@ import pantallaInicio.*
 
 program NightmareHunt {
     game.title("Nightmare Hunt")
-    game.height(70)
-    game.width(140)
+    game.height(10)
+    game.width(17)
     game.boardGround("mapa1.png")
-    game.cellSize(10)
+    game.cellSize(64)
     game.addVisual(contadorDeVidas)
     game.addVisual(dinero)
     armarFlechas.armarMapa1()

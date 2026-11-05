@@ -55,6 +55,7 @@ class ProtectorDeSuenos {
 
     // Ciclo de ataques
     method iniciarAtaques() {
+        self.atacar()
         self.programarAtaque()
     }
 
@@ -84,10 +85,10 @@ class ProtectorDeSuenos {
 
 class Oveja inherits ProtectorDeSuenos {
     override method image() = "oveja.png"
-    override method costo() = 100
-    override method danio() = 1
-    override method radioAtaque() = 7
-    override method cooldown() = 1000
+    override method costo() = 70
+    override method danio() = 2
+    override method radioAtaque() = 2
+    override method cooldown() = 900
     override method esOveja() = true
 
     // Ataca solamente a un enemigo por vez
@@ -99,10 +100,10 @@ class Oveja inherits ProtectorDeSuenos {
 
 class PerroGuardian inherits ProtectorDeSuenos {
     override method image() = "perroGuardian.png"
-    override method costo() = 180
-    override method danio() = 2
-    override method radioAtaque() = 10
-    override method cooldown() = 750
+    override method costo() = 120
+    override method danio() = 3
+    override method radioAtaque() = 2.5
+    override method cooldown() = 650
     override method esPerroGuardian() = true
 
     // Prioriza las pesadillas camufladas
@@ -122,9 +123,9 @@ class PerroGuardian inherits ProtectorDeSuenos {
 
 class LamparaProtectora inherits ProtectorDeSuenos {
     override method image() = "lamparaProtectora.png"
-    override method costo() = 250
+    override method costo() = 160
     override method danio() = 6
-    override method radioAtaque() = 8
+    override method radioAtaque() = 4.5
     override method cooldown() = 500
     override method esLamparaProtectora() = true
 
@@ -145,12 +146,12 @@ class LamparaProtectora inherits ProtectorDeSuenos {
 
 class PastorDeSuenos inherits ProtectorDeSuenos {
     override method image() = "pastorDeSuenos.png"
-    override method costo() = 400
+    override method costo() = 230
     override method danio() = 1
-    override method radioAtaque() = 25
-    override method cooldown() = 3000
+    override method radioAtaque() = 4.5
+    override method cooldown() = 2500
     override method esPastorDeSuenos() = true
-    method duracionRalentizacion() = 2000
+    method duracionRalentizacion() = 1800
 
     // Daña a todos los enemigos dentro de su rango
     // y los ralentiza
