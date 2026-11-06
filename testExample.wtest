@@ -1,1 +1,182 @@
 
+<<<<<<< Updated upstream
+=======
+describe "Protectores de Sueños y Pesadillas" {
+    // CAMINO
+    test "una posicion del recorrido pertenece al camino" {
+        assert.that(
+            mapa.esCamino(game.at(10,19))
+        )
+    }
+    test "una posicion fuera del recorrido no pertenece al camino" {
+        assert.that(
+            not mapa.esCamino(game.at(80,40))
+        )
+    }
+    test "no se puede colocar un protector sobre el camino" {
+        assert.that(
+            not gestorDeProtectores.puedeColocarEn(
+                game.at(10,19)
+            )
+        )
+    }
+    test "se puede colocar un protector fuera del camino" {
+        assert.that(
+            gestorDeProtectores.puedeColocarEn(
+                game.at(80,40)
+            )
+        )
+    }
+    
+    // LIMITE DE PROTECTORES
+    test "el limite de protectores es diez" {
+        assert.equals(
+            10,
+            gestorDeProtectores.limite()
+        )
+    }
+    test "no se puede colocar un protector si ya hay diez" {
+        (1..10).forEach({
+            numero =>
+                gestorDeProtectores.activos().add(
+                    new Oveja()
+                )
+        })
+        assert.equals(
+            10,
+            gestorDeProtectores.cantidad()
+        )
+        assert.that(
+            not gestorDeProtectores.puedeColocarEn(
+                game.at(80,40)
+            )
+        )
+    }
+
+    // PRECIO DE VENTA
+    test "la oveja devuelve la mitad de su costo" {
+
+        const oveja = new Oveja()
+
+        assert.equals(
+            35,
+            oveja.precioDeVenta()
+        )
+    }
+    test "el perro devuelve la mitad de su costo" {
+        const perro = new PerroGuardian()
+        assert.equals(
+            60,
+            perro.precioDeVenta()
+        )
+    }
+    test "la lampara devuelve la mitad de su costo" {
+        const lampara = new LamparaProtectora()
+        assert.equals(
+            80,
+            lampara.precioDeVenta()
+        )
+    }
+    test "el pastor devuelve la mitad de su costo" {
+        const pastor = new PastorDeSuenos()
+        assert.equals(
+            115,
+            pastor.precioDeVenta()
+        )
+    }
+
+    // PESADILLA PEQUEÑA
+    test "la pesadilla pequeña recibe daño de todos los protectores" {
+        const pesadilla = new PesadillaPequena()
+        assert.that(pesadilla.puedeRecibirDanioDe(new Oveja()))
+        assert.that(pesadilla.puedeRecibirDanioDe(new PerroGuardian()))
+        assert.that(pesadilla.puedeRecibirDanioDe(new LamparaProtectora()))
+        assert.that(pesadilla.puedeRecibirDanioDe(new PastorDeSuenos()))
+    }
+
+    // PESADILLA CAMUFLADA
+    test "la oveja no puede atacar a la pesadilla camuflada" {
+        const pesadilla = new PesadillaCamuflada()
+        assert.that(
+            not pesadilla.puedeRecibirDanioDe(new Oveja())
+        )
+    }
+    test "el perro puede atacar a la pesadilla camuflada" {
+        const pesadilla = new PesadillaCamuflada()
+        assert.that(
+            pesadilla.puedeRecibirDanioDe(new PerroGuardian())
+        )
+    }
+    test "la lampara puede atacar a la pesadilla camuflada" {
+        const pesadilla = new PesadillaCamuflada()
+        assert.that(
+            pesadilla.puedeRecibirDanioDe(new LamparaProtectora())
+        )
+    }
+    test "el pastor puede atacar a la pesadilla camuflada" {
+        const pesadilla = new PesadillaCamuflada()
+        assert.that(
+            pesadilla.puedeRecibirDanioDe(new PastorDeSuenos())
+        )
+    }
+
+    // PESADILLA GRANDE
+    test "la pesadilla grande es inmune a la lampara" {
+        const pesadilla = new PesadillaGrande()
+        assert.that(
+            not pesadilla.puedeRecibirDanioDe(
+                new LamparaProtectora()
+            )
+        )
+    }
+    test "la oveja puede atacar a la pesadilla grande" {
+        const pesadilla = new PesadillaGrande()
+        assert.that(
+            pesadilla.puedeRecibirDanioDe(new Oveja())
+        )
+    }
+    test "el perro puede atacar a la pesadilla grande" {
+        const pesadilla = new PesadillaGrande()
+        assert.that(
+            pesadilla.puedeRecibirDanioDe(new PerroGuardian())
+        )
+    }
+    test "el pastor puede atacar a la pesadilla grande" {
+        const pesadilla = new PesadillaGrande()
+        assert.that(
+            pesadilla.puedeRecibirDanioDe(new PastorDeSuenos())
+        )
+    }
+
+    // VIDAS
+    test "se reconoce cuando no quedan vidas" {
+        contadorDeVidas.vidas(0)
+        assert.that(
+            contadorDeVidas.sinVidas()
+        )
+    }
+
+    // ECONOMIA
+
+    test "se puede pagar un protector si alcanza el dinero" {
+        dinero.cantidad(100)
+        assert.that(
+            dinero.puedePagar(100)
+        )
+    }
+    test "no se puede pagar un protector si no alcanza el dinero" {
+        dinero.cantidad(50)
+        assert.that(
+            not dinero.puedePagar(100)
+        )
+    }
+    test "pagar un protector descuenta su costo" {
+        dinero.cantidad(100)
+        dinero.pagar(100)
+        assert.equals(
+            0,
+            dinero.cantidad()
+        )
+    }
+}
+>>>>>>> Stashed changes

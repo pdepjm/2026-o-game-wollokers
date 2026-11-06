@@ -1,5 +1,6 @@
 import wollok.game.*
 
+<<<<<<< Updated upstream
 import example.cursor
 import example.Mono
 import example.Globo
@@ -12,6 +13,27 @@ program PepitaGame {
 
 	const monos = []
 	const globos = []
+=======
+<<<<<<< HEAD
+program ProtectoresDeSuenos {
+    game.title("Pesadillas y Protectores de Sueños")
+    game.height(70)
+    game.width(140)
+    game.boardGround("mapa.png")
+    game.cellSize(5)
+=======
+program NightmareHunt {
+    game.title("Nightmare Hunt")
+    game.height(10)
+    game.width(17)
+    game.boardGround("mapa1.png")
+    game.cellSize(64)
+>>>>>>> 29b6170289d6bc77e0542ee2b63458df50db8bfd
+    game.addVisual(contadorDeVidas)
+    game.addVisual(dinero)
+    armarFlechas.armarMapa1()
+    game.addVisual(puntero)
+>>>>>>> Stashed changes
 
 
 	game.addVisualCharacter(cursor)
@@ -43,5 +65,76 @@ program PepitaGame {
 
 	
 
+<<<<<<< Updated upstream
 	game.start()
 }
+=======
+            puntero.position()
+        )
+    })
+<<<<<<< HEAD
+
+=======
+>>>>>>> 29b6170289d6bc77e0542ee2b63458df50db8bfd
+    keyboard.num2().onPressDo({
+
+        gestorDeProtectores.colocar(
+
+            new PerroGuardian(),
+
+            puntero.position()
+        )
+    })
+<<<<<<< HEAD
+
+=======
+>>>>>>> 29b6170289d6bc77e0542ee2b63458df50db8bfd
+    keyboard.num3().onPressDo({
+
+        gestorDeProtectores.colocar(
+
+            new LamparaProtectora(),
+
+            puntero.position()
+        )
+    })
+<<<<<<< HEAD
+
+=======
+>>>>>>> 29b6170289d6bc77e0542ee2b63458df50db8bfd
+    keyboard.num4().onPressDo({
+
+        gestorDeProtectores.colocar(
+
+            new PastorDeSuenos(),
+
+            puntero.position()
+        )
+    })
+    
+    keyboard.num0().onPressDo({
+
+        gestorDeProtectores.venderEn(
+
+            puntero.position()
+        )
+    })
+
+
+
+    entreTiempo.espera()
+    console.println("Controles:")
+    console.println("1: colocar oveja")
+    console.println("2: colocar perro guardian")
+    console.println("3: colocar lampara protectora")
+    console.println("4: colocar pastor de sueños")
+<<<<<<< HEAD
+    console.println("0: vender protector")
+=======
+    console.println("V: vender protector")
+>>>>>>> 29b6170289d6bc77e0542ee2b63458df50db8bfd
+    console.println("E: comenzar siguiente ronda")
+    console.println("ENTER: cerrar pantalla de inicio")
+    game.start()
+}
+>>>>>>> Stashed changes
