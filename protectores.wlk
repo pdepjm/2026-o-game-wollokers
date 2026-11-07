@@ -59,6 +59,7 @@ class ProtectorDeSuenos {
         self.programarAtaque()
     }
 
+
     // Programa un ataque después del cooldown
     method programarAtaque() {
         game.schedule(self.cooldown(), {

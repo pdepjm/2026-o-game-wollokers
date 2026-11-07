@@ -8,10 +8,12 @@ class Ronda {
     method cantidadDePesadillas()
     method intervaloGeneracion()
     method crearPesadilla(indice)
+    
     method iniciarRonda() {
         generadas = 0
         self.generarSiguiente()
     }
+    
     // Genera las pesadillas progresivamente
     method generarSiguiente() {
         if (not contadorDeVidas.sinVidas()) {
@@ -19,26 +21,20 @@ class Ronda {
                 const nuevaPesadilla = self.crearPesadilla(generadas)
                 nuevaPesadilla.iniciar()
                 generadas += 1
-                game.schedule(self.intervaloGeneracion(), {
-                    => self.generarSiguiente()
-                })
+                
+                game.schedule(self.intervaloGeneracion(), { self.generarSiguiente() })
             } else {
                 self.esperarFinalizacion()
             }
         }
     }
+
     // Espera hasta que todas las pesadillas desaparezcan
     method esperarFinalizacion() {
-        if (
-            contadorDeVidas.sinVidas() ||
-            gestorDePesadillas.activos().isEmpty()
-        ) {
+        if (contadorDeVidas.sinVidas() or gestorDePesadillas.activos().isEmpty()) {
             entreTiempo.terminarRonda()
         } else {
-            game.schedule(500, {
-
-                => self.esperarFinalizacion()
-            })
+            game.schedule(500, { self.esperarFinalizacion() })
         }
     }
 }
@@ -46,10 +42,13 @@ class Ronda {
 // RONDA 1
 class RondaUno inherits Ronda {
     override method cantidadDePesadillas() = 10
+    override method intervaloGeneracion() = 2000
+    override method crearPesadilla(indice) = new PesadillaPequena()
     override method intervaloGeneracion() = 2500
     override method crearPesadilla(indice) {
         new PesadillaPequena()
     }
+
 }
 
 // RONDA 2
@@ -86,28 +85,23 @@ const listaDeRondas = [
     new RondaTres()
 ]
 
-
 // CONTROL DE RONDAS
 object entreTiempo {
     var rondaActual = 0
     var enRonda = false
+    
     method espera() {
         keyboard.e().onPressDo({
-            if (
-                not enRonda &&
-                rondaActual < listaDeRondas.size() &&
-                not contadorDeVidas.sinVidas()
-            ) {
+            if (not enRonda and rondaActual < listaDeRondas.size() and not contadorDeVidas.sinVidas()) {
                 const rondaSiguiente = listaDeRondas.get(rondaActual)
                 rondaActual += 1
                 enRonda = true
-                console.println(
-                    "Inicio de la ronda: " + rondaActual.toString()
-                )
+                console.println("Inicio de la ronda: " + rondaActual.toString())
                 rondaSiguiente.iniciarRonda()
             }
         })
     }
+    
     method terminarRonda() {
         enRonda = false
         console.println("Termino la ronda")
