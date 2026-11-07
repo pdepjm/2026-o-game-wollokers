@@ -40,7 +40,7 @@ class Ronda {
 }
 
 // RONDA 1
-class RondaUno inherits Ronda {
+object RondaUno inherits Ronda {
     override method cantidadDePesadillas() = 10
     override method intervaloGeneracion() = 2000
     override method crearPesadilla(indice) = new PesadillaPequena()
@@ -52,7 +52,7 @@ class RondaUno inherits Ronda {
 }
 
 // RONDA 2
-class RondaDos inherits Ronda {
+object RondaDos inherits Ronda {
     override method cantidadDePesadillas() = 14
     override method intervaloGeneracion() = 2200
     override method crearPesadilla(indice) {
@@ -65,7 +65,7 @@ class RondaDos inherits Ronda {
 }
 
 // RONDA 3
-class RondaTres inherits Ronda {
+object RondaTres inherits Ronda {
     override method cantidadDePesadillas() = 18
     override method intervaloGeneracion() = 2000
     override method crearPesadilla(indice) {
