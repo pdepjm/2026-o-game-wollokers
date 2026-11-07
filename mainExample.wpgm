@@ -1,94 +1,97 @@
 import wollok.game.*
+import puntero.*
+import protectores.*
+import flechas.*
+import vidas.*
+import rondas.*
+import dinero.*
+import pantallaInicio.*
 
-<<<<<<< Updated upstream
 import example.cursor
 import example.Mono
 import example.Globo
-
-program PepitaGame {
-	game.title("Bloons WLK")
-	game.height(10)
-	game.width(20)
-	game.boardGround("mapa1.png")
-
-	const monos = []
-	const globos = []
-=======
-<<<<<<< HEAD
-program ProtectoresDeSuenos {
-    game.title("Pesadillas y Protectores de Sueños")
-    game.height(70)
-    game.width(140)
-    game.boardGround("mapa.png")
-    game.cellSize(5)
-=======
 program NightmareHunt {
     game.title("Nightmare Hunt")
     game.height(10)
     game.width(17)
     game.boardGround("mapa1.png")
     game.cellSize(64)
->>>>>>> 29b6170289d6bc77e0542ee2b63458df50db8bfd
     game.addVisual(contadorDeVidas)
     game.addVisual(dinero)
     armarFlechas.armarMapa1()
     game.addVisual(puntero)
->>>>>>> Stashed changes
+    game.addVisual(pantallaInicio)
 
 
-	game.addVisualCharacter(cursor)
-	
-	const monoNuevo = new Mono(numero =1, costo = 300, disparoVel = 2000, radioAtaque = 2)
-	monos.add(monoNuevo)
-	game.addVisual(monoNuevo)
+	const monos = []
+	const globos = []
+program ProtectoresDeSuenos {
+    game.title("Pesadillas y Protectores de Sueños")
+    game.height(70)
+    game.width(140)
+    game.boardGround("mapa.png")
+    game.cellSize(5)
+    game.addVisual(contadorDeVidas)
+    game.addVisual(dinero)
+    armarFlechas.armarMapa1()
+    game.addVisual(puntero)
 
-	monos.forEach({mono => game.onTick(mono.getDisparoVel(), "romperGlobo",{mono.atacar(globos)})})
+
+    keyboard.enter().onPressDo({
+        game.removeVisual(pantallaInicio)
+        keyboard.enter().clean()
+    })
+    keyboard.up().whilePressedDo({
+        puntero.position(
+            puntero.position().up(1)
+        )
+    }, 100)
+    keyboard.down().whilePressedDo({
+        puntero.position(
+            puntero.position().down(1)
+        )
+    }, 100)
+    keyboard.left().whilePressedDo({
+        puntero.position(
+            puntero.position().left(1)
+        )
+    }, 100)
+    keyboard.right().whilePressedDo({
+        puntero.position(
+            puntero.position().right(1)
+        )
+    }, 100)
 
 
-	game.onTick(2000, "generar" ,{
-		const globoNuevo = new Globo(numero = 1, velocidad = 1)
-		globos.add(globoNuevo)
-		game.addVisual(globoNuevo)
-		})
 
-	game.onTick(7000, "generar2" ,{
-		const globoNuevo = new Globo(numero = 2, velocidad = 2 )
-		globos.add(globoNuevo)
-		game.addVisual(globoNuevo)
-		})
-	
-	game.onTick(1000, "moverGlobos", {globos.forEach{ globo => globo.avanzar() }})
+    keyboard.num1().onPressDo({
 
-	game.onTick(500, "BorrarGlobos", {
-        const globosQueSalieron = globos.filter({ globo => globo.position().x() >= 20 })
-        globosQueSalieron.forEach({ globo =>  game.removeVisual(globo) globos.remove(globo)}) })
+        gestorDeProtectores.colocar(
 
-	
+            new Oveja(),
 
-<<<<<<< Updated upstream
-	game.start()
-}
-=======
             puntero.position()
         )
     })
-<<<<<<< HEAD
-
-=======
->>>>>>> 29b6170289d6bc77e0542ee2b63458df50db8bfd
     keyboard.num2().onPressDo({
 
         gestorDeProtectores.colocar(
+
+	game.start()
+}
+
+    keyboard.num2().onPressDo({
+
+        gestorDeProtectores.colocar(
+
 
             new PerroGuardian(),
 
             puntero.position()
         )
     })
-<<<<<<< HEAD
 
-=======
->>>>>>> 29b6170289d6bc77e0542ee2b63458df50db8bfd
+
     keyboard.num3().onPressDo({
 
         gestorDeProtectores.colocar(
@@ -98,10 +101,8 @@ program NightmareHunt {
             puntero.position()
         )
     })
-<<<<<<< HEAD
 
-=======
->>>>>>> 29b6170289d6bc77e0542ee2b63458df50db8bfd
+
     keyboard.num4().onPressDo({
 
         gestorDeProtectores.colocar(
@@ -128,13 +129,15 @@ program NightmareHunt {
     console.println("2: colocar perro guardian")
     console.println("3: colocar lampara protectora")
     console.println("4: colocar pastor de sueños")
-<<<<<<< HEAD
     console.println("0: vender protector")
-=======
-    console.println("V: vender protector")
->>>>>>> 29b6170289d6bc77e0542ee2b63458df50db8bfd
     console.println("E: comenzar siguiente ronda")
     console.println("ENTER: cerrar pantalla de inicio")
     game.start()
 }
->>>>>>> Stashed changes
+
+    console.println("V: vender protector")
+    console.println("E: comenzar siguiente ronda")
+    console.println("ENTER: cerrar pantalla de inicio")
+    game.start()
+}
+

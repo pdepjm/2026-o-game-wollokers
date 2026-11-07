@@ -1,6 +1,10 @@
+import wollok.game.*
+import dinero.*
+import vidas.*
+import mapa.*
+import protectores.*
+import pesadillas.*
 
-<<<<<<< Updated upstream
-=======
 describe "Protectores de Sueños y Pesadillas" {
     // CAMINO
     test "una posicion del recorrido pertenece al camino" {
@@ -178,5 +182,8 @@ describe "Protectores de Sueños y Pesadillas" {
             dinero.cantidad()
         )
     }
+
 }
->>>>>>> Stashed changes
+
+}
+
