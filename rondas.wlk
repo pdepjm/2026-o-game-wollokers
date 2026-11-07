@@ -79,11 +79,11 @@ object RondaTres inherits Ronda {
     }
 }
 
-const listaDeRondas = [
-    new RondaUno(),
-    new RondaDos(),
-    new RondaTres()
-]
+//const listaDeRondas = [
+//    new RondaUno(),
+    //new RondaDos(),
+    //new RondaTres()
+//]
 
 // CONTROL DE RONDAS
 object entreTiempo {
@@ -92,12 +92,9 @@ object entreTiempo {
     
     method espera() {
         keyboard.e().onPressDo({
-            if (not enRonda and rondaActual < listaDeRondas.size() and not contadorDeVidas.sinVidas()) {
-                const rondaSiguiente = listaDeRondas.get(rondaActual)
-                rondaActual += 1
+            if (not enRonda and gestorDeRondas.hayMasRondas() and not contadorDeVidas.sinVidas()) {
                 enRonda = true
-                console.println("Inicio de la ronda: " + rondaActual.toString())
-                rondaSiguiente.iniciarRonda()
+                gestorDeRondas.iniciarSiguienteRonda()
             }
         })
     }
@@ -105,8 +102,26 @@ object entreTiempo {
     method terminarRonda() {
         enRonda = false
         console.println("Termino la ronda")
-        if (rondaActual == listaDeRondas.size()) {
+        if (not gestorDeRondas.hayMasRondas()) {
             console.println("Se completaron todas las rondas")
+        }
+    }
+}
+
+
+//OBJECTO GESTOR DE RONDAS
+object gestorDeRondas{
+    const rondas = [RondaUno, RondaDos, RondaTres]
+    var rondaAactual= 0
+
+    method hayMasRondas()= rondaAactual < rondas.size()
+
+    method iniciarSiguienteRonda(){
+        if(self.hayMasRondas()){
+            const rondaActual = rondas.get(rondaAactual)
+            rondaAactual += 1
+            console.println("Inicio de la ronda: " + rondaAactual.toString())
+            rondaActual.iniciarRonda()
         }
     }
 }
