@@ -40,54 +40,38 @@ class Ronda {
 }
 
 // RONDA 1
-object RondaUno inherits Ronda {
+object rondaUno inherits Ronda {
     override method cantidadDePesadillas() = 10
-    override method intervaloGeneracion() = 2000
-    override method crearPesadilla(indice) = new PesadillaPequena()
     override method intervaloGeneracion() = 2500
-    override method crearPesadilla(indice) {
-        new PesadillaPequena()
-    }
-
+    override method crearPesadilla(indice) = new PesadillaPequena()
 }
 
 // RONDA 2
-object RondaDos inherits Ronda {
+object rondaDos inherits Ronda {
     override method cantidadDePesadillas() = 14
     override method intervaloGeneracion() = 2200
-    override method crearPesadilla(indice) {
-        if (indice < 8) {
+    override method crearPesadilla(indice) =
+        if (indice < 8)
             new PesadillaPequena()
-        } else {
+        else
             new PesadillaCamuflada()
-        }
-    }
 }
 
 // RONDA 3
-object RondaTres inherits Ronda {
+object rondaTres inherits Ronda {
     override method cantidadDePesadillas() = 18
     override method intervaloGeneracion() = 2000
-    override method crearPesadilla(indice) {
-        if (indice < 5) {
+    override method crearPesadilla(indice) =
+        if (indice < 5)
             new PesadillaPequena()
-        } else if (indice < 12) {
+        else if (indice < 12)
             new PesadillaCamuflada()
-        } else {
+        else
             new PesadillaGrande()
-        }
-    }
 }
-
-//const listaDeRondas = [
-//    new RondaUno(),
-    //new RondaDos(),
-    //new RondaTres()
-//]
 
 // CONTROL DE RONDAS
 object entreTiempo {
-    var rondaActual = 0
     var enRonda = false
     
     method espera() {
@@ -108,19 +92,18 @@ object entreTiempo {
     }
 }
 
+// OBJETO GESTOR DE RONDAS
+object gestorDeRondas {
+    const rondas = [rondaUno, rondaDos, rondaTres]
+    var indiceRondaActual = 0
 
-//OBJECTO GESTOR DE RONDAS
-object gestorDeRondas{
-    const rondas = [RondaUno, RondaDos, RondaTres]
-    var rondaAactual= 0
+    method hayMasRondas() = indiceRondaActual < rondas.size()
 
-    method hayMasRondas()= rondaAactual < rondas.size()
-
-    method iniciarSiguienteRonda(){
-        if(self.hayMasRondas()){
-            const rondaActual = rondas.get(rondaAactual)
-            rondaAactual += 1
-            console.println("Inicio de la ronda: " + rondaAactual.toString())
+    method iniciarSiguienteRonda() {
+        if (self.hayMasRondas()) {
+            const rondaActual = rondas.get(indiceRondaActual)
+            indiceRondaActual += 1
+            console.println("Inicio de la ronda: " + indiceRondaActual.toString())
             rondaActual.iniciarRonda()
         }
     }

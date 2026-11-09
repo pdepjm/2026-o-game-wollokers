@@ -3,8 +3,11 @@ import wollok.game.*
 object contadorDeVidas {
     var property vidas = 10
 
-    method position() = game.at(5, 67)
-    method text() = "Vidas: " + vidas.toString()
+    method position() = game.at(130, 59)
+    method text() = "❤️ = " + vidas.toString()
+
+    method textColor() = "FFFFFFFF"
+    
     method perderVida() {
         if (vidas > 0) {
             vidas -= 1
@@ -16,6 +19,7 @@ object contadorDeVidas {
     method sinVidas() = vidas <= 0
     method esPesadilla() = false
 }
+
 
 object pantallaGameOver {
     method position() = game.center()

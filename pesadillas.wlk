@@ -4,8 +4,8 @@ import vidas.*
 
 
 class Pesadilla {
-    var property position = game.at(0,19)
-    var property direccion = derecha
+    var property position = game.at(10,0)
+    var property direccion = arriba
     var property vidaActual = 1
     var property ralentizada = false
     var contadorRalentizacion = 0
@@ -96,7 +96,7 @@ class Pesadilla {
 
 
 class PesadillaPequena inherits Pesadilla {
-    override method image() = "globo1.png"
+    override method image() = "pesadillaPequena.png"
     override method vidaMaxima() = 2
     override method intervaloBase() = 500
     override method recompensa() = 8
@@ -104,7 +104,7 @@ class PesadillaPequena inherits Pesadilla {
 }
 
 class PesadillaCamuflada inherits Pesadilla {
-    override method image() = "globo2.png"
+    override method image() = "pesadillaCamuflada.png"
     override method vidaMaxima() = 4
     override method intervaloBase() = 500
     override method recompensa() = 14
@@ -118,8 +118,9 @@ class PesadillaCamuflada inherits Pesadilla {
         protector.esPastorDeSuenos()
 }
 
+
 class PesadillaGrande inherits Pesadilla {
-    override method image() = "goat.png"
+    override method image() = "pesadillaGrande.png"
     override method vidaMaxima() = 12
     override method intervaloBase() = 900
     override method recompensa() = 28

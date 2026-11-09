@@ -1,5 +1,8 @@
 import wollok.game.*
 import pesadillas.*
+import mapa.*
+import dinero.*
+import protectores.*
 
 // FLECHAS
 class Flecha {
@@ -25,29 +28,26 @@ class CasillaFinal {
 }
 
 // MAPA
-object armarFlechas {
+object flechero {
     method armarMapa1() {
-        self.colocarFlechas(64,19,abajo, "flechaAbajo.png")
-        self.colocarFlechas(64,9,derecha, "flechaDerecha.png")
-        self.colocarFlechas(114,9, arriba, "flechaArriba.png")
-        self.colocarFlechas(114,35,izquierda,"flechaIzquierda.png")
-        self.colocarFlechas(97,35,abajo,"flechaAbajo.png")
-        self.colocarFlechas(97,19,izquierda,"flechaIzquierda.png")
-        self.colocarFlechas(81,19,arriba,"flechaArriba.png")
-        self.colocarFlechas(81,44,izquierda,"flechaIzquierda.png")
-        self.colocarFlechas(67,44,abajo,"flechaAbajo.png")
-        self.colocarFlechas(67,32,izquierda,"flechaIzquierda.png")
-        self.colocarFlechas(55,32,arriba,"flechaArriba.png")
-        self.colocarFlechas(55,44,izquierda,"flechaIzquierda.png")
-        self.colocarFlechas(41,44,abajo,"flechaAbajo.png")
-        self.colocarFlechas(41,32,izquierda,"flechaIzquierda.png")
-        self.colocarFlechas(25,32,arriba,"flechaArriba.png")
-        self.colocarFlechas(25,59,derecha,"flechaDerecha.png")
-        self.colocarFlechas(95,59,abajo,"flechaAbajo.png")
-        self.colocarFlechas(95,49,derecha,"flechaDerecha.png")
-        self.colocarFlechas(113,49,arriba,"flechaArriba.png")
-        self.colocarFinal(113,65)
+        self.colocarFlechas(10,28,derecha,"flechaDerecha.png")
+        self.colocarFlechas(28,28,arriba,"flechaArriba.png")
+        self.colocarFlechas(28,56,derecha,"flechaDerecha.png")
+        self.colocarFlechas(63,56,abajo, "flechaAbajo.png")
+        self.colocarFlechas(63,45,izquierda,"flechaIzquierda.png")
+        self.colocarFlechas(45,43,abajo,"flechaAbajo.png")
+        self.colocarFlechas(45,2,derecha,"flechaDerecha.png")
+        self.colocarFlechas(107,2,arriba,"flechaArriba.png")
+        self.colocarFlechas(107,14,izquierda,"flechaIzquierda.png")
+        self.colocarFlechas(81,14,arriba,"flechaArriba.png")
+        self.colocarFlechas(81,35,derecha,"flechaDerecha.png")
+        self.colocarFlechas(97,35,arriba,"flechaArriba.png")
+        self.colocarFlechas(97,56,derecha, "flechaDerecha.png")
+        self.colocarFinal(116,56)
+        interfazGenerador.colocarInterfaz()
+        
     }
+
     method colocarFlechas(x, y, apunta, imagen) {
         const nuevaFlecha = new Flecha(
             position = game.at(x,y),
@@ -62,10 +62,11 @@ object armarFlechas {
                 }
         })
     }
+
     method colocarFinal(x,y) {
         const nuevoFinal = new CasillaFinal(
             position = game.at(x,y),
-            image = "final.png"
+            image = "end.png"
         )
         game.addVisual(nuevoFinal)
         game.onCollideDo(nuevoFinal, {
@@ -75,4 +76,7 @@ object armarFlechas {
                 }
         })
     }
+
+    
+    
 }

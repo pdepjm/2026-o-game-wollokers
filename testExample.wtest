@@ -4,6 +4,7 @@ import vidas.*
 import mapa.*
 import protectores.*
 import pesadillas.*
+import rondas.*
 
 describe "Protectores de Sueños y Pesadillas" {
     // CAMINO
@@ -183,6 +184,27 @@ describe "Protectores de Sueños y Pesadillas" {
         )
     }
 
+    // RONDAS
+    test "rondaUno crea pesadillas pequeñas" {
+        const pesadilla = rondaUno.crearPesadilla(0)
+        assert.that(pesadilla.esPesadilla())
+        assert.that(not pesadilla.esCamuflada())
+        assert.that(not pesadilla.esGrande())
+    }
+
+    test "rondaDos crea pesadilla camuflada a partir del indice 8" {
+        const normal = rondaDos.crearPesadilla(0)
+        const camuflada = rondaDos.crearPesadilla(8)
+        assert.that(not normal.esCamuflada())
+        assert.that(camuflada.esCamuflada())
+    }
+
+    test "rondaTres crea pesadilla grande a partir del indice 12" {
+        const grande = rondaTres.crearPesadilla(12)
+        assert.that(grande.esGrande())
+    }
+
+    test "gestorDeRondas reconoce si hay mas rondas" {
+        assert.that(gestorDeRondas.hayMasRondas())
+    }
 }
-
-

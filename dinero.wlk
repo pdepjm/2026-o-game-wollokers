@@ -1,10 +1,12 @@
 import wollok.game.*
 
 object dinero {
-    var property cantidad = 350
-    method position() = game.at(5, 63)
-    method text() = "Dinero: " + cantidad.toString()
 
+
+    var property cantidad = 350
+    method position() = game.at(130, 67)
+    method text() = "🌙 = " + cantidad.toString()
+    method textColor() = "FFFFFFFF"
     method puedePagar(costo) = cantidad >= costo
     method pagar(costo) {
         if (self.puedePagar(costo)) {
@@ -15,4 +17,26 @@ object dinero {
         cantidad += monto
     }
     method esPesadilla() = false
+
+}
+
+object precios{
+
+method ponerPrecios(x, y, cantidad) {
+        const cartelNuevo = new PrecioVisual(
+            position = game.at(x, y),
+            cantidad = cantidad
+        )
+    
+        game.addVisual(cartelNuevo)
+    }
+}
+
+class PrecioVisual {
+    var property position
+    const cantidad
+    
+    method text() = "🌙" + cantidad.toString() 
+    
+    method textColor() = "FFFFFFFF" 
 }
