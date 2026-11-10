@@ -1,6 +1,7 @@
 import wollok.game.*
 import pesadillas.*
 import vidas.*
+import pantallaInicio.*
 
 // CLASE BASE RONDA
 class Ronda {
@@ -73,16 +74,20 @@ object rondaTres inherits Ronda {
 // CONTROL DE RONDAS
 object entreTiempo {
     var enRonda = false
-    
     method espera() {
         keyboard.e().onPressDo({
-            if (not enRonda and gestorDeRondas.hayMasRondas() and not contadorDeVidas.sinVidas()) {
+            if (
+                not enRonda &&
+                estadoInicio.estaCerrado() &&
+                gestorDeRondas.hayMasRondas() &&
+                not contadorDeVidas.sinVidas()
+            ) {
                 enRonda = true
                 gestorDeRondas.iniciarSiguienteRonda()
             }
         })
     }
-    
+
     method terminarRonda() {
         enRonda = false
         console.println("Termino la ronda")
@@ -94,17 +99,45 @@ object entreTiempo {
 
 // OBJETO GESTOR DE RONDAS
 object gestorDeRondas {
-    const rondas = [rondaUno, rondaDos, rondaTres]
+    const rondas = [
+        rondaUno,
+        rondaDos,
+        rondaTres
+    ]
     var indiceRondaActual = 0
 
-    method hayMasRondas() = indiceRondaActual < rondas.size()
+    method hayMasRondas() =
+        indiceRondaActual < rondas.size()
+
+    method numeroRondaActual() =
+        indiceRondaActual
 
     method iniciarSiguienteRonda() {
         if (self.hayMasRondas()) {
-            const rondaActual = rondas.get(indiceRondaActual)
+            const rondaActual =
+                rondas.get(indiceRondaActual)
+
             indiceRondaActual += 1
-            console.println("Inicio de la ronda: " + indiceRondaActual.toString())
+            console.println(
+                "Inicio de la ronda: " +
+                indiceRondaActual.toString()
+            )
             rondaActual.iniciarRonda()
         }
     }
 }
+
+object indicadorRonda {
+
+    method position() = game.at(14,7)
+
+    method text() =
+        "Ronda: " +
+        gestorDeRondas.numeroRondaActual().toString() +
+        "/3"
+
+    method textColor() = "FFFFFFFF"
+
+    method esPesadilla() = false
+}
+

@@ -3,7 +3,7 @@ import wollok.game.*
 object contadorDeVidas {
     var property vidas = 10
 
-    method position() = game.at(130, 59)
+    method position() = game.at(14, 8)
     method text() = "❤️ = " + vidas.toString()
 
     method textColor() = "FFFFFFFF"

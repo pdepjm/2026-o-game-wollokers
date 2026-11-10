@@ -56,9 +56,10 @@ class ProtectorDeSuenos {
     // Ciclo de ataques
     method iniciarAtaques() {
         self.atacar()
-        self.programarAtaque()
+        if (gestorDeProtectores.activos().contains(self)) {
+            self.programarAtaque()
+        }
     }
-
 
     // Programa un ataque después del cooldown
     method programarAtaque() {
@@ -88,7 +89,7 @@ class Oveja inherits ProtectorDeSuenos {
     override method image() = "oveja.png"
     override method costo() = 70
     override method danio() = 2
-    override method radioAtaque() = 3
+    override method radioAtaque() = 2
     override method cooldown() = 900
     override method esOveja() = true
 
@@ -103,7 +104,7 @@ class PerroGuardian inherits ProtectorDeSuenos {
     override method image() = "perroGuardian.png"
     override method costo() = 120
     override method danio() = 3
-    override method radioAtaque() = 3.5
+    override method radioAtaque() = 2.5
     override method cooldown() = 650
     override method esPerroGuardian() = true
 
@@ -126,7 +127,7 @@ class LamparaProtectora inherits ProtectorDeSuenos {
     override method image() = "lamparaProtectora.png"
     override method costo() = 160
     override method danio() = 6
-    override method radioAtaque() = 5.5
+    override method radioAtaque() = 3
     override method cooldown() = 500
     override method esLamparaProtectora() = true
 
@@ -149,7 +150,7 @@ class PastorDeSuenos inherits ProtectorDeSuenos {
     override method image() = "pastorDeSuenos.png"
     override method costo() = 230
     override method danio() = 1
-    override method radioAtaque() = 5.5
+    override method radioAtaque() = 4
     override method cooldown() = 2500
     override method esPastorDeSuenos() = true
     method duracionRalentizacion() = 1800

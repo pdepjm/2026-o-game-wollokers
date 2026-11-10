@@ -1,106 +1,92 @@
 import wollok.game.*
 import puntero.*
 import protectores.*
-import flechas.*
 import vidas.*
 import rondas.*
 import dinero.*
 import pantallaInicio.*
+import mapa.*
 
-program ProtectoresDeSuenos {
-    game.title("Pesadillas y Protectores de Sueños")
-    game.height(70)
-    game.width(140)
+program NightmareHunt {
+    game.title("Nightmare Hunt")
+    game.height(10)
+    game.width(17)
     game.boardGround("mapa1.png")
-    game.cellSize(5)
+    game.cellSize(64)
+
+    // Interfaz
     game.addVisual(contadorDeVidas)
     game.addVisual(dinero)
-    flechero.armarMapa1()
     game.addVisual(puntero)
+    game.addVisual(indicadorRonda)
+    game.addVisual(pantallaInicio)
+    interfazGenerador.colocarInterfaz()
     
+    keyboard.enter().onPressDo({
+        estadoInicio.cerrar()
+    })
 
-
-keyboard.space().onPressDo({
-    const posicionActual = puntero.position()
-    console.println("Coordenada: x=" + posicionActual.x() + ", y=" + posicionActual.y())
-})
+    keyboard.space().onPressDo({
+        const posicionActual = puntero.position()
+        console.println("Coordenada: x=" + posicionActual.x() + ", y=" + posicionActual.y())
+    })
 
     keyboard.enter().onPressDo({
         game.removeVisual(pantallaInicio)
         keyboard.enter().clean()
     })
+
+    // Puntero/cursor
     keyboard.up().whilePressedDo({
-        puntero.position(
-            puntero.position().up(1)
-        )
-    }, 100)
-    keyboard.down().whilePressedDo({
-        puntero.position(
-            puntero.position().down(1)
-        )
-    }, 100)
-    keyboard.left().whilePressedDo({
-        puntero.position(
-            puntero.position().left(1)
-        )
-    }, 100)
-    keyboard.right().whilePressedDo({
-        puntero.position(
-            puntero.position().right(1)
-        )
+        puntero.moverA(puntero.position().up(1))
     }, 100)
 
+    keyboard.down().whilePressedDo({
+        puntero.moverA(puntero.position().down(1))
+    }, 100)
+
+    keyboard.left().whilePressedDo({
+        puntero.moverA(puntero.position().left(1))
+    }, 100)
+
+    keyboard.right().whilePressedDo({
+        puntero.moverA(puntero.position().right(1))
+    }, 100)
 
 
     keyboard.num1().onPressDo({
-
         gestorDeProtectores.colocar(
-
             new Oveja(),
-
             puntero.position()
         )
     })
 
     keyboard.num2().onPressDo({
-
         gestorDeProtectores.colocar(
-
             new PerroGuardian(),
-
             puntero.position()
         )
     })
 
     keyboard.num3().onPressDo({
-
         gestorDeProtectores.colocar(
-
             new LamparaProtectora(),
-
             puntero.position()
         )
     })
 
     keyboard.num4().onPressDo({
-
         gestorDeProtectores.colocar(
-
             new PastorDeSuenos(),
-
             puntero.position()
         )
     })
     
     keyboard.num0().onPressDo({
-
         gestorDeProtectores.venderEn(
-
             puntero.position()
         )
     })
-
-
 
     entreTiempo.espera()
     console.println("Controles:")
@@ -111,5 +97,6 @@ keyboard.space().onPressDo({
     console.println("0: vender protector")
     console.println("E: comenzar siguiente ronda")
     console.println("ENTER: cerrar pantalla de inicio")
+    console.println("SPACE: mostrar coordenadas")
     game.start()
 }

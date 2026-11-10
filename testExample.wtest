@@ -8,29 +8,44 @@ import rondas.*
 
 describe "Protectores de Sueños y Pesadillas" {
     // CAMINO
+    test "el recorrido tiene 47 casillas" {
+
+        assert.equals(
+            47,
+            mapa.cantidadDeCasillasDelCamino()
+        )
+    }
+
+
+    test "la pesadilla comienza en la primera casilla" {
+
+        assert.equals(
+            game.at(1,0),
+            mapa.posicionDelCamino(0)
+        )
+    }
+
+
+    test "la pesadilla termina en la ultima casilla" {
+
+        assert.equals(
+            game.at(13,8),
+            mapa.posicionDelCamino(
+                mapa.ultimoIndiceDelCamino()
+            )
+        )
+    }
+
     test "una posicion del recorrido pertenece al camino" {
-        assert.that(
-            mapa.esCamino(game.at(10,19))
-        )
+        assert.that(mapa.esCamino(game.at(1,0)))
+    }   
+
+    test "una posicion libre no pertenece al camino" {
+        assert.that(not mapa.esCamino(game.at(8,4)))
     }
-    test "una posicion fuera del recorrido no pertenece al camino" {
-        assert.that(
-            not mapa.esCamino(game.at(80,40))
-        )
-    }
-    test "no se puede colocar un protector sobre el camino" {
-        assert.that(
-            not gestorDeProtectores.puedeColocarEn(
-                game.at(10,19)
-            )
-        )
-    }
-    test "se puede colocar un protector fuera del camino" {
-        assert.that(
-            gestorDeProtectores.puedeColocarEn(
-                game.at(80,40)
-            )
-        )
+
+    test "el panel no pertenece al area de colocacion" {
+        assert.that(not mapa.estaDentroDelTablero(game.at(14,5)))
     }
     
     // LIMITE DE PROTECTORES

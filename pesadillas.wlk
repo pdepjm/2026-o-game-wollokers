@@ -1,11 +1,12 @@
 import wollok.game.*
 import dinero.*
 import vidas.*
+import mapa.*
 
 
 class Pesadilla {
-    var property position = game.at(10,0)
-    var property direccion = arriba
+    var property position = game.at(1,0)
+    var indiceCamino = 0
     var property vidaActual = 1
     var property ralentizada = false
     var contadorRalentizacion = 0
@@ -20,26 +21,56 @@ class Pesadilla {
     method esGrande() = false
     method recompensa() = 0
 
-    // Registra la pesadilla y empieza a moverla
+    // Registra la pesadilla y comienza su movimiento
     method iniciar() {
         vidaActual = self.vidaMaxima()
+        indiceCamino = 0
+        position = mapa.posicionDelCamino(indiceCamino)
         gestorDePesadillas.agregar(self)
         game.addVisual(self)
-        self.avanzar()
+        self.programarMovimiento()
     }
 
-    // Comprueba si la pesadilla sigue viva
-    method estaActiva() = gestorDePesadillas.activos().contains(self)
 
-    // Movimiento automático
-    method avanzar() {
-        if (self.estaActiva() && not contadorDeVidas.sinVidas()) {
-            position = direccion.proximaPosicion(position)
+    // Programa el siguiente movimiento
+    method programarMovimiento() {
+
+        if (
+            self.estaActiva() &&
+            not contadorDeVidas.sinVidas()
+        ) {
+
             game.schedule(self.intervaloMovimiento(), {
                 => self.avanzar()
             })
         }
     }
+
+
+    // Avanza a la siguiente coordenada del recorrido
+    method avanzar() {
+        if (
+            self.estaActiva() &&
+            not contadorDeVidas.sinVidas()
+        ) {
+            if (indiceCamino < mapa.ultimoIndiceDelCamino()) {
+                indiceCamino += 1
+                position = mapa.posicionDelCamino(indiceCamino)
+            // Si llegó a la última casilla, pierde una vida
+               if (
+                    indiceCamino ==
+                    mapa.ultimoIndiceDelCamino()
+                ) {
+                    self.llegarAlFinal()
+                } else {
+                    self.programarMovimiento()
+                }
+            }
+        }
+    }
+
+    // Comprueba si la pesadilla sigue viva
+    method estaActiva() = gestorDePesadillas.activos().contains(self)
 
     // Calcula el intervalo de movimiento considerando la ralentización
     method intervaloMovimiento() =
@@ -94,11 +125,10 @@ class Pesadilla {
 }
 
 
-
 class PesadillaPequena inherits Pesadilla {
     override method image() = "pesadillaPequena.png"
     override method vidaMaxima() = 2
-    override method intervaloBase() = 500
+    override method intervaloBase() = 700
     override method recompensa() = 8
     override method puedeRecibirDanioDe(protector) = true
 }
@@ -106,7 +136,7 @@ class PesadillaPequena inherits Pesadilla {
 class PesadillaCamuflada inherits Pesadilla {
     override method image() = "pesadillaCamuflada.png"
     override method vidaMaxima() = 4
-    override method intervaloBase() = 500
+    override method intervaloBase() = 700
     override method recompensa() = 14
     override method esCamuflada() = true
 
@@ -122,7 +152,7 @@ class PesadillaCamuflada inherits Pesadilla {
 class PesadillaGrande inherits Pesadilla {
     override method image() = "pesadillaGrande.png"
     override method vidaMaxima() = 12
-    override method intervaloBase() = 900
+    override method intervaloBase() = 1100
     override method recompensa() = 28
     override method esGrande() = true
 
@@ -142,20 +172,4 @@ object gestorDePesadillas {
     method eliminar(pesadilla) {
         activos.remove(pesadilla)
     }
-}
-
-object derecha {
-    method proximaPosicion(posicion) = posicion.right(1)
-}
-
-object izquierda {
-    method proximaPosicion(posicion) = posicion.left(1)
-}
-
-object arriba {
-    method proximaPosicion(posicion) = posicion.up(1)
-}
-
-object abajo {
-    method proximaPosicion(posicion) = posicion.down(1)
 }
