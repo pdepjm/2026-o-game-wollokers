@@ -182,14 +182,14 @@ object mapa {
 object interfazGenerador{
     method colocarInterfaz(){
 
-        self.colocarVisuales(127, 42, "pastorDeSuenos.png")
-        precios.ponerPrecios(130, 42, 230)
-        self.colocarVisuales(127,30,"lamparaProtectora.png")
-        precios.ponerPrecios(130, 30, 160)
-        self.colocarVisuales(127,18,"oveja.png")
-        precios.ponerPrecios(127,18,70)
-        self.colocarVisuales(127,2, "perroGuardian.png")
-        precios.ponerPrecios(130, 2, 120)
+        self.colocarVisuales(15, 6, "pastorDeSuenos.png")
+        precios.ponerPrecios(15, 5, 230)
+        self.colocarVisuales(15,4,"lamparaProtectora.png")
+        precios.ponerPrecios(15, 3, 160)
+        self.colocarVisuales(16,6,"oveja.png")
+        precios.ponerPrecios(16,5,70)
+        self.colocarVisuales(16,4, "perroGuardian.png")
+        precios.ponerPrecios(16, 3, 120)
 }
 
 

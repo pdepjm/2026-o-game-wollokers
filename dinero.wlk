@@ -4,7 +4,7 @@ object dinero {
 
 
     var property cantidad = 350
-    method position() = game.at(14, 9)
+    method position() = game.at(15, 9)
     method text() = "🌙 = " + cantidad.toString()
     method textColor() = "FFFFFFFF"
     method puedePagar(costo) = cantidad >= costo

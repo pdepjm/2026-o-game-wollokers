@@ -4,7 +4,7 @@ import mapa.*
 object puntero {
 
     var property position = game.at(8,4)
-    method image() = "goat.png"
+    method image() = "cursorNegro.png"
     method esPesadilla() = false
 
     method moverA(nuevaPosicion) {

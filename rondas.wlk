@@ -129,7 +129,7 @@ object gestorDeRondas {
 
 object indicadorRonda {
 
-    method position() = game.at(14,7)
+    method position() = game.at(15,7)
 
     method text() =
         "Ronda: " +

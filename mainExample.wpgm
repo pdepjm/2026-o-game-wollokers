@@ -20,10 +20,11 @@ program NightmareHunt {
     game.addVisual(puntero)
     game.addVisual(indicadorRonda)
     game.addVisual(pantallaInicio)
-    interfazGenerador.colocarInterfaz()
+    
     
     keyboard.enter().onPressDo({
         estadoInicio.cerrar()
+        interfazGenerador.colocarInterfaz()
     })
 
     keyboard.space().onPressDo({
