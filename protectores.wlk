@@ -15,6 +15,7 @@ class ProtectorDeSuenos {
     method radioAtaque()
     method cooldown()
     method atacar()
+    method puedeAtacar(pesadilla)
 
     // Identificación de tipos
     method esPesadilla() = false
@@ -38,18 +39,19 @@ class ProtectorDeSuenos {
     }
 
     // Devuelve las pesadillas en rango que puede dañar
+
     method objetivosEnRango() {
         return gestorDePesadillas.activos().filter({
             pesadilla =>
                 self.estaEnRango(pesadilla) &&
-                pesadilla.puedeRecibirDanioDe(self)
+                self.puedeAtacar(pesadilla)
         })
     }
 
     // Método para atacar un único objetivo
     method daniarPrimerObjetivo(objetivos) {
         if (not objetivos.isEmpty()) {
-            objetivos.first().recibirDanio(self.danio(), self)
+            objetivos.first().recibirDanio(self.danio())
         }
     }
 
@@ -88,11 +90,13 @@ class ProtectorDeSuenos {
 class Oveja inherits ProtectorDeSuenos {
     override method image() = "oveja.png"
     override method costo() = 70
-    override method danio() = 2
+    override method danio() = 1
     override method radioAtaque() = 2
-    override method cooldown() = 900
+    override method cooldown() = 1400
     override method esOveja() = true
 
+    override method puedeAtacar(pesadilla) =
+        not pesadilla.esCamuflada()
     // Ataca solamente a un enemigo por vez
     override method atacar() {
         self.daniarPrimerObjetivo(self.objetivosEnRango())
@@ -103,11 +107,12 @@ class Oveja inherits ProtectorDeSuenos {
 class PerroGuardian inherits ProtectorDeSuenos {
     override method image() = "perroGuardian.png"
     override method costo() = 120
-    override method danio() = 3
+    override method danio() = 1
     override method radioAtaque() = 2.5
-    override method cooldown() = 650
+    override method cooldown() = 800
     override method esPerroGuardian() = true
-
+    override method puedeAtacar(pesadilla) = true
+    
     // Prioriza las pesadillas camufladas
     override method atacar() {
         const objetivos = self.objetivosEnRango()
@@ -126,10 +131,12 @@ class PerroGuardian inherits ProtectorDeSuenos {
 class LamparaProtectora inherits ProtectorDeSuenos {
     override method image() = "lamparaProtectora.png"
     override method costo() = 160
-    override method danio() = 6
+    override method danio() = 4
     override method radioAtaque() = 3
     override method cooldown() = 500
     override method esLamparaProtectora() = true
+    override method puedeAtacar(pesadilla) =
+        not pesadilla.esGrande()
 
     // Daña a todos los enemigos compatibles en su rango
     // Despues se autodestruye
@@ -138,7 +145,7 @@ class LamparaProtectora inherits ProtectorDeSuenos {
         if (not objetivos.isEmpty()) {
             objetivos.forEach({
                 pesadilla =>
-                    pesadilla.recibirDanio(self.danio(), self)
+                    pesadilla.recibirDanio(self.danio())
             })
             self.destruir()
         }
@@ -151,9 +158,10 @@ class PastorDeSuenos inherits ProtectorDeSuenos {
     override method costo() = 230
     override method danio() = 1
     override method radioAtaque() = 4
-    override method cooldown() = 2500
+    override method cooldown() = 3500
     override method esPastorDeSuenos() = true
-    method duracionRalentizacion() = 1800
+    method duracionRalentizacion() = 1500
+    override method puedeAtacar(pesadilla) = true
 
     // Daña a todos los enemigos dentro de su rango
     // y los ralentiza
@@ -161,7 +169,7 @@ class PastorDeSuenos inherits ProtectorDeSuenos {
         const objetivos = self.objetivosEnRango()
         objetivos.forEach({
             pesadilla =>
-                pesadilla.recibirDanio(self.danio(), self)
+                pesadilla.recibirDanio(self.danio())
                 pesadilla.aplicarRalentizacion(
                     self.duracionRalentizacion()
                 )

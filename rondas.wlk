@@ -91,8 +91,13 @@ object entreTiempo {
     method terminarRonda() {
         enRonda = false
         console.println("Termino la ronda")
+
         if (not gestorDeRondas.hayMasRondas()) {
             console.println("Se completaron todas las rondas")
+
+            if (not contadorDeVidas.sinVidas()) {
+                game.addVisual(pantallaVictoria)
+            }
         }
     }
 }

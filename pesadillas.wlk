@@ -15,7 +15,6 @@ class Pesadilla {
     method image()
     method vidaMaxima()
     method intervaloBase()
-    method puedeRecibirDanioDe(protector)
     method esPesadilla() = true
     method esCamuflada() = false
     method esGrande() = false
@@ -96,12 +95,10 @@ class Pesadilla {
     }
 
     // Recibe daño de un protector
-    method recibirDanio(cantidad, protector) {
-        if (
-            self.estaActiva() &&
-            self.puedeRecibirDanioDe(protector)
-        ) {
+    method recibirDanio(cantidad) {
+        if (self.estaActiva()) {
             vidaActual -= cantidad
+
             if (vidaActual <= 0) {
                 dinero.ganar(self.recompensa())
                 self.eliminar()
@@ -127,40 +124,26 @@ class Pesadilla {
 
 class PesadillaPequena inherits Pesadilla {
     override method image() = "pesadillaPequena.png"
-    override method vidaMaxima() = 2
+    override method vidaMaxima() = 5
     override method intervaloBase() = 700
     override method recompensa() = 8
-    override method puedeRecibirDanioDe(protector) = true
 }
 
 class PesadillaCamuflada inherits Pesadilla {
     override method image() = "pesadillaCamuflada.png"
-    override method vidaMaxima() = 4
+    override method vidaMaxima() = 9
     override method intervaloBase() = 700
     override method recompensa() = 14
     override method esCamuflada() = true
-
-    // Solamente puede recibir daño del perro,
-    // de la lámpara y del pastor
-    override method puedeRecibirDanioDe(protector) =
-        protector.esPerroGuardian() ||
-        protector.esLamparaProtectora() ||
-        protector.esPastorDeSuenos()
 }
 
 
 class PesadillaGrande inherits Pesadilla {
     override method image() = "pesadillaGrande.png"
-    override method vidaMaxima() = 12
+    override method vidaMaxima() = 20
     override method intervaloBase() = 1100
     override method recompensa() = 28
     override method esGrande() = true
-
-    // Es inmune a la lámpara protectora
-    override method puedeRecibirDanioDe(protector) =
-        protector.esOveja() ||
-        protector.esPerroGuardian() ||
-        protector.esPastorDeSuenos()
 }
 
 object gestorDePesadillas {
