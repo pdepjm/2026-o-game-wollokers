@@ -124,14 +124,14 @@ class Pesadilla {
 
 class PesadillaPequena inherits Pesadilla {
     override method image() = "pesadillaPequena.png"
-    override method vidaMaxima() = 2
+    override method vidaMaxima() = 5
     override method intervaloBase() = 700
     override method recompensa() = 8
 }
 
 class PesadillaCamuflada inherits Pesadilla {
     override method image() = "pesadillaCamuflada.png"
-    override method vidaMaxima() = 4
+    override method vidaMaxima() = 9
     override method intervaloBase() = 700
     override method recompensa() = 14
     override method esCamuflada() = true
@@ -140,7 +140,7 @@ class PesadillaCamuflada inherits Pesadilla {
 
 class PesadillaGrande inherits Pesadilla {
     override method image() = "pesadillaGrande.png"
-    override method vidaMaxima() = 12
+    override method vidaMaxima() = 20
     override method intervaloBase() = 1100
     override method recompensa() = 28
     override method esGrande() = true

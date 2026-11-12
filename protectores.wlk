@@ -90,9 +90,9 @@ class ProtectorDeSuenos {
 class Oveja inherits ProtectorDeSuenos {
     override method image() = "oveja.png"
     override method costo() = 70
-    override method danio() = 2
+    override method danio() = 1
     override method radioAtaque() = 2
-    override method cooldown() = 900
+    override method cooldown() = 1400
     override method esOveja() = true
 
     override method puedeAtacar(pesadilla) =
@@ -107,9 +107,9 @@ class Oveja inherits ProtectorDeSuenos {
 class PerroGuardian inherits ProtectorDeSuenos {
     override method image() = "perroGuardian.png"
     override method costo() = 120
-    override method danio() = 3
+    override method danio() = 1
     override method radioAtaque() = 2.5
-    override method cooldown() = 650
+    override method cooldown() = 800
     override method esPerroGuardian() = true
     override method puedeAtacar(pesadilla) = true
     
@@ -131,7 +131,7 @@ class PerroGuardian inherits ProtectorDeSuenos {
 class LamparaProtectora inherits ProtectorDeSuenos {
     override method image() = "lamparaProtectora.png"
     override method costo() = 160
-    override method danio() = 6
+    override method danio() = 4
     override method radioAtaque() = 3
     override method cooldown() = 500
     override method esLamparaProtectora() = true
@@ -158,9 +158,9 @@ class PastorDeSuenos inherits ProtectorDeSuenos {
     override method costo() = 230
     override method danio() = 1
     override method radioAtaque() = 4
-    override method cooldown() = 2500
+    override method cooldown() = 3500
     override method esPastorDeSuenos() = true
-    method duracionRalentizacion() = 1800
+    method duracionRalentizacion() = 1500
     override method puedeAtacar(pesadilla) = true
 
     // Daña a todos los enemigos dentro de su rango
