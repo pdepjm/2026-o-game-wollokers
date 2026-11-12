@@ -6,6 +6,21 @@ class Visuales{
     var property image
 }
 
+object instrucciones{
+    var property  position = game.at(15,2)
+    var property text = "E: Iniciar Ronda
+            1: Oveja
+            2: Perro Guardian
+            3: Lampara Protectora
+            4: Pastor de Sueño
+            0: Vender Protector"
+    var property color = "FFFFFFFF"
+
+}
+
+
+
+
 object mapa {
     const matrizCamino = [
         // Fila 0
@@ -190,6 +205,10 @@ object interfazGenerador{
         precios.ponerPrecios(16,5,70)
         self.colocarVisuales(16,4, "perroGuardian.png")
         precios.ponerPrecios(16, 3, 120)
+
+       
+        
+        
 }
 
 
@@ -200,4 +219,9 @@ object interfazGenerador{
         )
         game.addVisual(nuevoVisual)
     }
+
+ 
 }
+
+  
+

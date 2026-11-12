@@ -20,7 +20,7 @@ program NightmareHunt {
     game.addVisual(puntero)
     game.addVisual(indicadorRonda)
     game.addVisual(pantallaInicio)
-    
+    game.addVisual(instrucciones)
     
     keyboard.enter().onPressDo({
         estadoInicio.cerrar()
