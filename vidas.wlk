@@ -1,4 +1,5 @@
 import wollok.game.*
+import mapa.*
 
 object contadorDeVidas {
     var property vidas = 10
@@ -12,6 +13,7 @@ object contadorDeVidas {
             vidas -= 1
 
             if (vidas == 0) {
+                game.removeVisual(instrucciones)
                 game.addVisual(pantallaDerrota)
             }
         }

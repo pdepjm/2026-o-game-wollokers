@@ -20,21 +20,21 @@ program NightmareHunt {
     game.addVisual(puntero)
     game.addVisual(indicadorRonda)
     game.addVisual(pantallaInicio)
-    game.addVisual(instrucciones)
     
     keyboard.enter().onPressDo({
-        estadoInicio.cerrar()
-        interfazGenerador.colocarInterfaz()
+        if (not estadoInicio.estaCerrado()) {
+            game.removeVisual(pantallaInicio)
+            estadoInicio.cerrar()
+
+            game.addVisual(instrucciones)
+            interfazGenerador.colocarInterfaz()
+        }
+        keyboard.enter().clean()
     })
 
     keyboard.space().onPressDo({
         const posicionActual = puntero.position()
         console.println("Coordenada: x=" + posicionActual.x() + ", y=" + posicionActual.y())
-    })
-
-    keyboard.enter().onPressDo({
-        game.removeVisual(pantallaInicio)
-        keyboard.enter().clean()
     })
 
     // Puntero/cursor

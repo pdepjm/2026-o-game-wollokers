@@ -8,14 +8,14 @@ class Visuales{
 
 object instrucciones{
     var property  position = game.at(15,2)
-    var property text = "E: Iniciar Ronda
-            1: Oveja
-            2: Perro Guardian
-            3: Lampara Protectora
-            4: Pastor de Sueño
-            0: Vender Protector"
-    var property color = "FFFFFFFF"
-
+    method text() =
+        "E: Iniciar Ronda\n" +
+        "1: Oveja\n" +
+        "2: Perro Guardian\n" +
+        "3: Lampara Protectora\n" +
+        "4: Pastor de Sueños\n" +
+        "0: Vender Protector"
+    method textColor() = "FFFFFFFF"
 }
 
 

@@ -2,6 +2,7 @@ import wollok.game.*
 import pesadillas.*
 import vidas.*
 import pantallaInicio.*
+import mapa.*
 
 // CLASE BASE RONDA
 class Ronda {
@@ -96,6 +97,7 @@ object entreTiempo {
             console.println("Se completaron todas las rondas")
 
             if (not contadorDeVidas.sinVidas()) {
+                game.removeVisual(instrucciones)
                 game.addVisual(pantallaVictoria)
             }
         }
