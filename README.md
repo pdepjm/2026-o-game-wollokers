@@ -1,5 +1,6 @@
-### [Nombre del juego]
+### Pesadillas y Protectores de Sueños
 
-* Integrante 1
-* Integrante 2
-* Etc...
+- Sakugawa Sofia
+- Frontini Kiara
+- Rey Alvarez Milagros
+- Merino Victor 
