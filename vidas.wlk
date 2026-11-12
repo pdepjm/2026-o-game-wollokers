@@ -5,24 +5,30 @@ object contadorDeVidas {
 
     method position() = game.at(15, 8)
     method text() = "❤️ = " + vidas.toString()
-
     method textColor() = "FFFFFFFF"
-    
+
     method perderVida() {
         if (vidas > 0) {
             vidas -= 1
+
             if (vidas == 0) {
-                game.addVisual(pantallaGameOver)
+                game.addVisual(pantallaDerrota)
             }
         }
     }
+
     method sinVidas() = vidas <= 0
     method esPesadilla() = false
 }
 
+object pantallaDerrota {
+    method position() = game.origin()
+    method image() = "pantallaDerrota.png"
+    method esPesadilla() = false
+}
 
-object pantallaGameOver {
-    method position() = game.center()
-    method text() = "GAME OVER"
+object pantallaVictoria {
+    method position() = game.origin()
+    method image() = "pantallaVictoria.png"
     method esPesadilla() = false
 }
